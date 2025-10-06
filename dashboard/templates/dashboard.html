@@ -1,0 +1,537 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <main class="main" id="top">
+      <nav class="navbar navbar-vertical navbar-expand-lg" style="display:none;">
+        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+          <!-- scrollbar removed-->
+          <div class="navbar-vertical-content">
+            <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+              <li class="nav-item">
+                <!-- parent pages-->
+                <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#nv-home" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-indicator-icon-wrapper"><span class="fas fa-caret-right dropdown-indicator-icon"></span></div><span class="nav-link-icon"><span data-feather="pie-chart"></span></span><span class="nav-link-text">Home</span>
+                    </div>
+                  </a>
+                  <div class="parent-wrapper label-1">
+                    <ul class="nav collapse parent show" data-bs-parent="#navbarVerticalCollapse" id="nv-home">
+                      <li class="collapsed-nav-item-title d-none">Home</li>
+                      <li class="nav-item"><a class="nav-link active" href="{% url 'dashboard:fetch-customer-data' %}">
+                          <div class="d-flex align-items-center"><span class="nav-link-text">Dashboard</span></div>
+                        </a><!-- more inner pages-->
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <!-- label-->
+                <p class="navbar-vertical-label">Apps</p>
+                <hr class="navbar-vertical-line" /><!-- parent pages-->
+                <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#nv-e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-e-commerce">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-indicator-icon-wrapper"><span class="fas fa-caret-right dropdown-indicator-icon"></span></div><span class="nav-link-icon"><span data-feather="shopping-cart"></span></span><span class="nav-link-text">Zip Fit</span>
+                    </div>
+                  </a>
+                  <div class="parent-wrapper label-1">
+                    <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-admin">
+                      <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:add_window_configuration' %}">
+                          <div class="d-flex align-items-center"><span class="nav-link-text">Add product</span></div>
+                        </a><!-- more inner pages-->
+                      </li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:product_list' %}">
+                          <div class="d-flex align-items-center"><span class="nav-link-text">Products</span></div>
+                        </a><!-- more inner pages-->
+                      </li>
+    
+                      <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:orders' %}">
+                          <div class="d-flex align-items-center"><span class="nav-link-text">Orders</span></div>
+                        </a><!-- more inner pages-->
+                      </li>
+
+                    </ul>
+                  </div>
+                </div><!-- parent pages-->
+               
+               
+
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbar-vertical-footer"><button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center"><span class="uil uil-left-arrow-to-left fs-8"></span><span class="uil uil-arrow-from-right fs-8"></span><span class="navbar-vertical-footer-text ms-2">Collapsed View</span></button></div>
+      </nav>
+      <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault" style="display:none;">
+        <div class="collapse navbar-collapse justify-content-between">
+          <div class="navbar-logo">
+            <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+            <a class="navbar-brand me-1 me-sm-3" href="">
+              <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center"><img src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="phoenix" width="70" />
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <ul class="navbar-nav navbar-nav-icons flex-row">
+            <li class="nav-item">
+              <div class="theme-control-toggle fa-icon-wait px-2"><input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" /><label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="moon"></span></label><label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="sun"></span></label></div>
+            </li>
+
+
+            <li class="nav-item dropdown"><a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-l ">
+                  <img class="rounded-circle " src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="" />
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser">
+                <div class="card position-relative border-0">
+                  <div class="card-body p-0">
+                    <div class="text-center pt-4 pb-3">
+                      <div class="avatar avatar-xl ">
+                        <img class="rounded-circle " src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="" />
+                      </div>
+                      <h6 class="mt-2 text-body-emphasis">Jerry Seinfield</h6>
+                    </div>
+                  </div>
+                  <div class="overflow-auto scrollbar" style="height: 2rem;">
+                    <ul class="nav d-flex flex-column mb-2 pb-1">
+                      <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user"></span><span>Profile</span></a></li>
+                    </ul>
+                  </div>
+<div class="card-footer p-0 border-top border-translucent">
+    <div class="px-3"> 
+        <a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="{% url 'dashboard:logout' %}">
+            <span class="me-2" data-feather="log-out"></span>Sign out
+        </a>
+    </div>
+    <div class="my-2 text-center fw-bold fs-10 text-body-quaternary">
+        <a class="text-body-quaternary me-1" href="#!">Privacy policy</a>&bull;
+        <a class="text-body-quaternary mx-1" href="#!">Terms</a>&bull;
+        <a class="text-body-quaternary ms-1" href="#!">Cookies</a>
+    </div>
+</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+      <script>
+        var navbarTopShape = window.config.config.phoenixNavbarTopShape;
+        var navbarPosition = window.config.config.phoenixNavbarPosition;
+        var body = document.querySelector('body');
+        var navbarDefault = document.querySelector('#navbarDefault');
+        var navbarTop = document.querySelector('#navbarTop');
+        var topNavSlim = document.querySelector('#topNavSlim');
+        var navbarTopSlim = document.querySelector('#navbarTopSlim');
+        var navbarCombo = document.querySelector('#navbarCombo');
+        var navbarComboSlim = document.querySelector('#navbarComboSlim');
+        var dualNav = document.querySelector('#dualNav');
+
+        var documentElement = document.documentElement;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+
+        if (navbarPosition === 'dual-nav') {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          navbarDefault?.remove();
+          navbarVertical?.remove();
+          dualNav.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'dual');
+
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+          navbarDefault?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          topNavSlim.style.display = 'block';
+          navbarVertical.style.display = 'inline-block';
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+          navbarDefault?.remove();
+          navbarVertical?.remove();
+          navbarTop?.remove();
+          topNavSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarTopSlim.removeAttribute('style');
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'combo') {
+          navbarDefault?.remove();
+          navbarTop?.remove();
+          topNavSlim?.remove();
+          navbarCombo?.remove();
+          navbarTopSlim?.remove();
+          dualNav?.remove();
+          navbarComboSlim.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+        } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+          navbarDefault?.remove();
+          topNavSlim?.remove();
+          navbarVertical?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarTop.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'horizontal');
+        } else if (navbarTopShape === 'default' && navbarPosition === 'combo') {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarDefault?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarCombo.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'combo');
+        } else {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarDefault.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+        }
+
+        var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+        var navbarTop = document.querySelector('.navbar-top');
+        if (navbarTopStyle === 'darker') {
+          navbarTop.setAttribute('data-navbar-appearance', 'darker');
+        }
+
+        var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+        if (navbarVerticalStyle === 'darker') {
+          navbarVertical.setAttribute('data-navbar-appearance', 'darker');
+        }
+      </script>
+      <div class="content">
+        <div class="row gy-3 mb-6 justify-content-between">
+          <div class="col-md-9 col-auto">
+            <h2 class="mb-2 text-body-emphasis">Projects Dashboard</h2>
+            <h5 class="text-body-tertiary fw-semibold">Here’s what’s going on at your business right now</h5>
+          </div>
+          <div class="col-md-3 col-auto">
+            <div class="flatpickr-input-container"><input class="form-control ps-6 datetimepicker" id="datepicker" type="text" data-options='{"dateFormat":"M j, Y","disableMobile":true,"defaultDate":"Mar 1, 2022"}' /><span class="uil uil-calendar-alt flatpickr-icon text-body-tertiary"></span></div>
+          </div>
+        </div>
+        <div class="row mb-3 gy-6">
+          <div class="col-12 col-xxl-2">
+            <div class="row align-items-center g-3 g-xxl-0 h-100 align-content-between">
+              <div class="col-12 col-sm-6 col-md-3 col-lg-6 col-xl-3 col-xxl-12">
+                <div class="d-flex align-items-center"><span class="fs-4 lh-1 uil uil-books text-primary-dark"></span>
+                  <div class="ms-2">
+                    <div class="d-flex align-items-end">
+                      <h2 class="mb-0 me-2">32</h2><span class="fs-7 fw-semibold text-body">Projects</span>
+                    </div>
+                    <p class="text-body-secondary fs-9 mb-0">Awating processing</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3 col-lg-6 col-xl-3 col-xxl-12">
+                <div class="d-flex align-items-center"><span class="fs-4 lh-1 uil uil-users-alt text-success-dark"></span>
+                  <div class="ms-2">
+                    <div class="d-flex align-items-end">
+                      <h2 class="mb-0 me-2">94</h2><span class="fs-7 fw-semibold text-body">Members</span>
+                    </div>
+                    <p class="text-body-secondary fs-9 mb-0">Working hard</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3 col-lg-6 col-xl-3 col-xxl-12">
+                <div class="d-flex align-items-center"><span class="fs-4 lh-1 uil uil-invoice text-warning-dark"></span>
+                  <div class="ms-2">
+                    <div class="d-flex align-items-end">
+                      <h2 class="mb-0 me-2">23</h2><span class="fs-7 fw-semibold text-body">Invoices</span>
+                    </div>
+                    <p class="text-body-secondary fs-9 mb-0">Soon to be cleared</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3 col-lg-6 col-xl-3 col-xxl-12">
+                <div class="d-flex align-items-center"><span class="fs-4 lh-1 uil uil-refresh text-danger-dark"></span>
+                  <div class="ms-2">
+                    <div class="d-flex align-items-end">
+                      <h2 class="mb-0 me-2">3</h2><span class="fs-7 fw-semibold text-body">Refunds</span>
+                    </div>
+                    <p class="text-body-secondary fs-9 mb-0">Fresh start</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-6 col-xxl-5">
+            <div class="mx-xxl-0">
+              <h3>Project: zero Roadmap</h3>
+              <p class="text-body-tertiary">Phase 2 is now ongoing</p>
+              <div class="gantt-zero-roadmap">
+                <div class="row g-2 flex-between-center mb-3">
+                  <div class="col-12 col-sm-auto">
+                    <div class="d-flex">
+                      <div class="d-flex align-items-end me-3"><label class="form-check-label mb-0 me-2 lh-1 text-body" for="progress">Progress</label>
+                        <div class="form-check form-switch min-h-auto mb-0"><input class="form-check-input" id="progress" type="checkbox" checked="" data-gantt-progress="data-gantt-progress" /></div>
+                      </div>
+                      <div class="d-flex align-items-end flex-1"><label class="form-check-label mb-0 me-2 lh-1 text-body" for="links">Links</label>
+                        <div class="form-check form-switch min-h-auto flex-1 mb-0"><input class="form-check-input" id="links" type="checkbox" checked="" data-gantt-links="data-gantt-links" /></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-auto">
+                    <div class="btn-group" role="group" data-gantt-scale="data-gantt-scale"><input class="btn-check" id="weekView" type="radio" name="scaleView" value="week" checked="" /><label class="btn btn-phoenix-secondary bg-body-highlight-hover fs-10 py-1 mb-0" for="weekView">Week</label><input class="btn-check" id="monthView" type="radio" name="scaleView" value="month" /><label class="btn btn-phoenix-secondary bg-body-highlight-hover fs-10 py-1 mb-0" for="monthView">Month</label><input class="btn-check" id="yearView" type="radio" name="scaleView" value="year" /><label class="btn btn-phoenix-secondary bg-body-highlight-hover fs-10 py-1 mb-0" for="yearView">Year</label></div>
+                  </div>
+                </div>
+                <div class="gantt-zero-roadmap-chart"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-6 col-xxl-5">
+            <div class="card border h-100 w-100 overflow-hidden">
+              <div class="bg-holder d-block bg-card" style="background-image:url(../assets/img/spot-illustrations/32.png);background-position: top right;"></div>
+              <!--/.bg-holder-->
+              <div class="d-dark-none">
+                <div class="bg-holder d-none d-sm-block d-xl-none d-xxl-block bg-card" style="background-image:url(../assets/img/spot-illustrations/21.png);background-position: bottom right; background-size: auto;"></div>
+                <!--/.bg-holder-->
+              </div>
+              <div class="d-light-none">
+                <div class="bg-holder d-none d-sm-block d-xl-none d-xxl-block bg-card" style="background-image:url(../assets/img/spot-illustrations/dark_21.png);background-position: bottom right; background-size: auto;"></div>
+                <!--/.bg-holder-->
+              </div>
+              <div class="card-body px-5 position-relative">
+                <div class="badge badge-phoenix fs-10 badge-phoenix-warning mb-4"><span class="fw-bold">Coming soon</span><span class="fa-solid fa-award ms-1"></span></div>
+                <h3 class="mb-5">Early bird gets the warm leads!</h3>
+                <p class="text-body-tertiary fw-semibold">Phoenix CRM Dashboard is coming to <br class="d-none d-sm-block" />market soon for fulfilling your every <br class="d-none d-sm-block" />CRM related needs. </p>
+              </div>
+              <div class="card-footer border-0 py-0 px-5 z-1">
+                <p class="text-body-tertiary fw-semibold">Follow <a href="https://themewagon.com/">ThemeWagon </a>at <br class="d-none d-xxl-block" />Bootstrap Marketplace for updates.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis pt-7 pb-3 border-y">
+          <div class="row">
+            <div class="col-12 col-xl-7 col-xxl-6">
+              <div class="row g-3 mb-3">
+                <div class="col-12 col-md-6">
+                  <h3 class="text-body-emphasis text-nowrap">Issues Discovered</h3>
+                  <p class="text-body-tertiary mb-md-7">Newly found and yet to be solved</p>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="mb-0 fw-bold">Issue type </p>
+                    <p class="mb-0 fs-9">Total count <span class="fw-bold">257</span></p>
+                  </div>
+                  <hr class="bg-body-secondary mb-2 mt-2" />
+                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-info-light bullet-item me-2"></span>
+                    <p class="mb-0 fw-semibold text-body lh-sm flex-1">Product design</p>
+                    <h5 class="mb-0 text-body">78</h5>
+                  </div>
+                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-warning-light bullet-item me-2"></span>
+                    <p class="mb-0 fw-semibold text-body lh-sm flex-1">Development</p>
+                    <h5 class="mb-0 text-body">63</h5>
+                  </div>
+                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-danger-light bullet-item me-2"></span>
+                    <p class="mb-0 fw-semibold text-body lh-sm flex-1">QA &amp; Testing</p>
+                    <h5 class="mb-0 text-body">56</h5>
+                  </div>
+                  <div class="d-flex align-items-center mb-1"><span class="d-inline-block bg-success-light bullet-item me-2"></span>
+                    <p class="mb-0 fw-semibold text-body lh-sm flex-1">Customer queries</p>
+                    <h5 class="mb-0 text-body">36</h5>
+                  </div>
+                  <div class="d-flex align-items-center"><span class="d-inline-block bg-primary bullet-item me-2"></span>
+                    <p class="mb-0 fw-semibold text-body lh-sm flex-1">R &amp; D</p>
+                    <h5 class="mb-0 text-body">24</h5>
+                  </div><button class="btn btn-outline-primary mt-5">See Details<span class="fas fa-angle-right ms-2 fs-10 text-center"></span></button>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="position-relative mb-sm-4 mb-xl-0">
+                    <div class="echart-issue-chart" style="min-height:390px;width:100%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-5 col-xxl-6">
+              <h3>Project: eleven Progress</h3>
+              <p class="text-body-tertiary mb-0 mb-xl-3">Deadline &amp; progress</p>
+              <div class="echart-zero-burnout-chart" style="min-height:320px;width:100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer position-absolute">
+          <div class="row g-0 justify-content-between align-items-center h-100">
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 mt-2 mt-sm-0 text-body">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2025 &copy;<a class="mx-1" href="https://themewagon.com/">Themewagon</a></p>
+            </div>
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 text-body-tertiary text-opacity-85">v1.23.0</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="modal fade" id="searchBoxModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true" data-phoenix-modal="data-phoenix-modal" style="--phoenix-backdrop-opacity: 1;">
+        <div class="modal-dialog">
+          <div class="modal-content mt-15 rounded-pill">
+            <div class="modal-body p-0">
+              <div class="search-box navbar-top-search-box" data-list='{"valueNames":["title"]}' style="width: auto;">
+                <form class="position-relative" data-bs-toggle="search" data-bs-display="static"><input class="form-control search-input fuzzy-search rounded-pill form-control-lg" type="search" placeholder="Search..." aria-label="Search" />
+                  <span class="fas fa-search search-box-icon"></span>
+                </form>
+                <div class="btn-close position-absolute end-0 top-50 translate-middle cursor-pointer shadow-none" data-bs-dismiss="search"><button class="btn btn-link p-0" aria-label="Close"></button></div>
+                <div class="dropdown-menu border start-0 py-0 overflow-hidden w-100">
+                  <div class="scrollbar-overlay" style="max-height: 30rem;">
+                    <div class="list pb-3">
+                      <h6 class="dropdown-header text-body-highlight fs-10 py-2">24 <span class="text-body-quaternary">results</span></h6>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Recently Searched </h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> Store Macbook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> MacBook Air - 13″</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Products</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="h-100 w-100 object-fit-cover rounded-3" src="../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Air - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">8GB Memory - 1.6GHz - 128GB Storage</span></p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="img-fluid" src="../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Pro - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">30 Sep at 12:30 PM</span></p>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Quick Links</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Support MacBook House</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Files</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-file-zipper text-body" data-fa-transform="shrink-2"></span> Library MacBook folder.rar</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-file-lines text-body" data-fa-transform="shrink-2"></span> Feature MacBook extensions.txt</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-image text-body" data-fa-transform="shrink-2"></span> MacBook Pro_13.jpg</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Members</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
+                          <div class="avatar avatar-l status-online  me-2 text-body">
+                            <img class="rounded-circle " src="../assets/img/team/40x40/10.webp" alt="" />
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">Carry Anna</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">anna@technext.it</p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
+                          <div class="avatar avatar-l  me-2 text-body">
+                            <img class="rounded-circle " src="../assets/img/team/40x40/12.webp" alt="" />
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">John Smith</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">smith@technext.it</p>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Related Searches</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-brands fa-firefox-browser text-body" data-fa-transform="shrink-2"></span> Search in the Web MacBook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-brands fa-chrome text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <p class="fallback fw-bold fs-7 d-none">No Result Found.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="support-chat-container">
+        <div class="container-fluid support-chat">
+          <div class="card bg-body-emphasis">
+            <div class="card-header d-flex flex-between-center px-4 py-3 border-bottom border-translucent">
+              <h5 class="mb-0 d-flex align-items-center gap-2">Demo widget<span class="fa-solid fa-circle text-success fs-11"></span></h5>
+              <div class="btn-reveal-trigger"><button class="btn btn-link p-0 dropdown-toggle dropdown-caret-none transition-none d-flex" type="button" id="support-chat-dropdown" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h text-body"></span></button>
+                <div class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="support-chat-dropdown"><a class="dropdown-item" href="#!">Request a callback</a><a class="dropdown-item" href="#!">Search in chat</a><a class="dropdown-item" href="#!">Show history</a><a class="dropdown-item" href="#!">Report to Admin</a><a class="dropdown-item btn-support-chat" href="#!">Close Support</a></div>
+              </div>
+            </div>
+            <div class="card-body chat p-0">
+              <div class="d-flex flex-column-reverse scrollbar h-100 p-3">
+                <div class="text-end mt-6"><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I need help with something</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I can’t reorder a product I previously ordered</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">How do I place an order?</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="false d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">My payment method not working</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a></div>
+                <div class="text-center mt-auto">
+                  <div class="avatar avatar-3xl status-online"><img class="rounded-circle border border-3 border-light-subtle" src="../assets/img/team/30.webp" alt="" /></div>
+                  <h5 class="mt-2 mb-3">Eric</h5>
+                  <p class="text-center text-body-emphasis mb-0">Ask us anything – we’ll get back to you here or by email within 24 hours.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex align-items-center gap-2 border-top border-translucent ps-3 pe-4 py-3">
+              <div class="d-flex align-items-center flex-1 gap-3 border border-translucent rounded-pill px-4"><input class="form-control outline-none border-0 flex-1 fs-9 px-0" type="text" placeholder="Write message" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatPhotos"><span class="fa-solid fa-image"></span></label><input class="d-none" type="file" accept="image/*" id="supportChatPhotos" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatAttachment"> <span class="fa-solid fa-paperclip"></span></label><input class="d-none" type="file" id="supportChatAttachment" /></div><button class="btn p-0 border-0 send-btn"><span class="fa-solid fa-paper-plane fs-9"></span></button>
+            </div>
+          </div>
+      </div>
+    </main>
+{% endblock %}

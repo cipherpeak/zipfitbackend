@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Success!</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+                    </div>
+                    <h4 class="card-title">{{ message }}</h4>
+                    <p class="card-text">
+                        Configuration #{{ config_id }} - {{ window_type }} has been saved to the database.
+                    </p>
+                    <div class="mt-4">
+                        <a href="{% url 'dashboard:add_window_configuration' %}" class="btn btn-primary mr-3">
+                            <i class="fas fa-plus-circle"></i> Add Another
+                        </a>
+                        <a href="{% url 'dashboard:product_list' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-list"></i> View All Configurations
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    Configuration saved at {% now "DATETIME_FORMAT" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

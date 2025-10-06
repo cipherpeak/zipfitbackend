@@ -1,0 +1,1056 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <main class="main" id="top">
+      <nav class="navbar navbar-vertical navbar-expand-lg" style="display:none;">
+        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+          <!-- scrollbar removed-->
+          <div class="navbar-vertical-content">
+            <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+              <li class="nav-item">
+                <!-- parent pages-->
+                <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#nv-home" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-indicator-icon-wrapper"><span class="fas fa-caret-right dropdown-indicator-icon"></span></div><span class="nav-link-icon"><span data-feather="pie-chart"></span></span><span class="nav-link-text">Home</span>
+                    </div>
+                  </a>
+                  <div class="parent-wrapper label-1">
+                    <ul class="nav collapse parent show" data-bs-parent="#navbarVerticalCollapse" id="nv-home">
+                      <li class="collapsed-nav-item-title d-none">Home</li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:fetch-customer-data' %}">
+                          <div class="d-flex align-items-center"><span class="nav-link-text">Production</span></div>
+                        </a><!-- more inner pages-->
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <!-- label-->
+                <p class="navbar-vertical-label">Apps</p>
+                <hr class="navbar-vertical-line" /><!-- parent pages-->
+                <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#nv-e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-e-commerce">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-indicator-icon-wrapper"><span class="fas fa-caret-right dropdown-indicator-icon"></span></div><span class="nav-link-icon"><span data-feather="shopping-cart"></span></span><span class="nav-link-text">Zip Fit</span>
+                    </div>
+                  </a>
+                  <div class="parent-wrapper label-1">
+                    <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="nv-e-commerce">
+                      <li class="collapsed-nav-item-title d-none">Zip Fit</li>
+                      <li class="nav-item"><a class="nav-link dropdown-indicator" href="#nv-admin" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-admin">
+                          <div class="d-flex align-items-center">
+                            <div class="dropdown-indicator-icon-wrapper"><span class="fas fa-caret-right dropdown-indicator-icon"></span></div><span class="nav-link-text">Admin</span>
+                          </div>
+                        </a><!-- more inner pages-->
+                        <div class="parent-wrapper">
+                          <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-admin">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:add_window_configuration' %}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Add product</span></div>
+                              </a><!-- more inner pages-->
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:product_list' %}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text" >Products</span></div>
+                              </a><!-- more inner pages-->
+                            </li>
+          
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:orders' %}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Orders</span></div>
+                              </a><!-- more inner pages-->
+                            </li>
+
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div><!-- parent pages-->
+               
+               
+
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbar-vertical-footer"><button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center"><span class="uil uil-left-arrow-to-left fs-8"></span><span class="uil uil-arrow-from-right fs-8"></span><span class="navbar-vertical-footer-text ms-2">Collapsed View</span></button></div>
+      </nav>
+      <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault" style="display:none;">
+        <div class="collapse navbar-collapse justify-content-between">
+          <div class="navbar-logo">
+            <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+            <a class="navbar-brand me-1 me-sm-3" href="">
+              <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center"><img src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="phoenix" width="70" />
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <ul class="navbar-nav navbar-nav-icons flex-row">
+            <li class="nav-item">
+              <div class="theme-control-toggle fa-icon-wait px-2"><input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" /><label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="moon"></span></label><label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="sun"></span></label></div>
+            </li>
+
+
+            <li class="nav-item dropdown"><a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-l ">
+                  <img class="rounded-circle " src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="" />
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser">
+                <div class="card position-relative border-0">
+                  <div class="card-body p-0">
+                    <div class="text-center pt-4 pb-3">
+                      <div class="avatar avatar-xl ">
+                        <img class="rounded-circle " src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="" />
+                      </div>
+                      <h6 class="mt-2 text-body-emphasis">Jerry Seinfield</h6>
+                    </div>
+                  </div>
+                  <div class="overflow-auto scrollbar" style="height: 2rem;">
+                    <ul class="nav d-flex flex-column mb-2 pb-1">
+                      <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user"></span><span>Profile</span></a></li>
+                    </ul>
+                  </div>
+                  <div class="card-footer p-0 border-top border-translucent">
+                    <div class="px-3"> <a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="#!"> <span class="me-2" data-feather="log-out"> </span>Sign out</a></div>
+                    <div class="my-2 text-center fw-bold fs-10 text-body-quaternary"><a class="text-body-quaternary me-1" href="#!">Privacy policy</a>&bull;<a class="text-body-quaternary mx-1" href="#!">Terms</a>&bull;<a class="text-body-quaternary ms-1" href="#!">Cookies</a></div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+      <script>
+        var navbarTopShape = window.config.config.phoenixNavbarTopShape;
+        var navbarPosition = window.config.config.phoenixNavbarPosition;
+        var body = document.querySelector('body');
+        var navbarDefault = document.querySelector('#navbarDefault');
+        var navbarTop = document.querySelector('#navbarTop');
+        var topNavSlim = document.querySelector('#topNavSlim');
+        var navbarTopSlim = document.querySelector('#navbarTopSlim');
+        var navbarCombo = document.querySelector('#navbarCombo');
+        var navbarComboSlim = document.querySelector('#navbarComboSlim');
+        var dualNav = document.querySelector('#dualNav');
+
+        var documentElement = document.documentElement;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+
+        if (navbarPosition === 'dual-nav') {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          navbarDefault?.remove();
+          navbarVertical?.remove();
+          dualNav.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'dual');
+
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+          navbarDefault?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          topNavSlim.style.display = 'block';
+          navbarVertical.style.display = 'inline-block';
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+          navbarDefault?.remove();
+          navbarVertical?.remove();
+          navbarTop?.remove();
+          topNavSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarTopSlim.removeAttribute('style');
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'combo') {
+          navbarDefault?.remove();
+          navbarTop?.remove();
+          topNavSlim?.remove();
+          navbarCombo?.remove();
+          navbarTopSlim?.remove();
+          dualNav?.remove();
+          navbarComboSlim.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+        } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+          navbarDefault?.remove();
+          topNavSlim?.remove();
+          navbarVertical?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarTop.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'horizontal');
+        } else if (navbarTopShape === 'default' && navbarPosition === 'combo') {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarDefault?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarCombo.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'combo');
+        } else {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarDefault.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+        }
+
+        var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+        var navbarTop = document.querySelector('.navbar-top');
+        if (navbarTopStyle === 'darker') {
+          navbarTop.setAttribute('data-navbar-appearance', 'darker');
+        }
+
+        var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+        if (navbarVerticalStyle === 'darker') {
+          navbarVertical.setAttribute('data-navbar-appearance', 'darker');
+        }
+      </script>
+      <div class="content">
+        <nav class="mb-3" aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#!">Home</a></li>
+            <li class="breadcrumb-item active">Customer Details</li>
+          </ol>
+        </nav>
+        <div class="mb-9">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .order-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .order-info h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .orders-table {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .orders-table table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        .orders-table th, .orders-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .orders-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .orders-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .status-pending { color: #ff9800; }
+        .status-approved { color: #4caf50; }
+        .status-in_production { color: #2196f3; }
+        .status-completed { color: #4caf50; }
+        .status-rejected { color: #f44336; }
+        
+        .production-table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .production-table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 1200px;
+            font-size: 11px;
+        }
+        
+        .production-table th, .production-table td {
+            border: 1px solid #333;
+            padding: 4px 6px;
+            text-align: center;
+            vertical-align: middle;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .production-table td.completed {
+            background-color: #4CAF50 !important;
+            color: white;
+        }
+        
+        .header-main {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .header-sub {
+            background-color: #f8f8f8;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        
+        .rotated-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            white-space: nowrap;
+            height: 80px;
+            width: 20px;
+            font-size: 9px;
+        }
+        
+        .component-name {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 8px;
+        }
+        
+        .cutting-size {
+            font-weight: bold;
+        }
+        
+        .mark {
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .series-header {
+            background-color: #e0e0e0;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            height: 60px;
+        }
+        
+        .model-header {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .order-header {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <div class="order-info">
+        <h2>Customer Information</h2>
+        <p><strong>Name:</strong> {{ order.customer_name }}</p>
+        <p><strong>Email:</strong> {{ order.customer_email }}</p>
+        <p><strong>Phone:</strong> {{ order.customer_phone }}</p>
+        <p><strong>Address:</strong> {{ order.customer_address }}</p>
+    </div>
+    
+    <div class="orders-table">
+        <h2>All Orders for This Customer</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Window Model</th>
+                    <th>Surface Treatment</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Approx. Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer_order in customer_orders %}
+                <tr>
+                    <td>{{ customer_order.id }}</td>
+                    <td>
+                        {% if customer_order.window_model %}
+                            {{ customer_order.window_model.window_type.name }} - 
+                            {{ customer_order.window_model.window_series.name }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if customer_order.surface_treatment %}
+                            {{ customer_order.surface_treatment.name }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </td>
+                    <td class="status-{{ customer_order.status }}">{{ customer_order.get_status_display }}</td>
+                    <td>{{ customer_order.created_at|date:"M d, Y" }}</td>
+                    <td>{{ customer_order.approximate_amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% for customer_order in customer_orders %}
+    <div class="production-table-container">
+        <div class="order-header">
+            <h2>Production Details for Order #{{ customer_order.id }}</h2>
+            <p>
+                <strong>Window Model:</strong> 
+                {% if customer_order.window_model %}
+                    {{ customer_order.window_model.window_type.name }} - 
+                    {{ customer_order.window_model.window_series.name }}
+                {% else %}
+                    Not specified
+                {% endif %}
+                |
+                <strong>Surface Treatment:</strong> 
+                {% if customer_order.surface_treatment %}
+                    {{ customer_order.surface_treatment.name }}
+                {% else %}
+                    Not specified
+                {% endif %}
+                |
+                <strong>Status:</strong> 
+                <span class="status-{{ customer_order.status }}">{{ customer_order.get_status_display }}</span>
+            </p>
+        </div>
+        
+        <table class="production-table" data-order-id="{{ customer_order.id }}">
+            <thead>
+                <tr>
+                    <th rowspan="3" class="series-header">Series<br>25P</th>
+                    <th colspan="21" class="model-header">
+                        {% if customer_order.window_model %}
+                            {{ customer_order.window_model.width.name }}x{{ customer_order.window_model.height.name }}
+                        {% else %}
+                            Window Configuration
+                        {% endif %}
+                    </th>
+                </tr>
+                <tr>
+                    <th rowspan="2" class="header-main">Cutting Size</th>
+                    <th rowspan="2" class="header-main">Pcs</th>
+                    <th colspan="3" class="header-main">Holling (mm)</th>
+                    <th rowspan="2" class="header-main">Hinges Hole</th>
+                    <th colspan="4" class="header-main">Holling (mm)</th>
+                    <th rowspan="2" class="header-main">28X10 Hole</th>
+                    <th colspan="2" class="header-main">Step Cutting Vertical&H</th>
+                    <th colspan="2" class="header-main">Hinges Hole Punching</th>
+                    <th rowspan="2" class="header-main">Hinges Plate</th>
+                    <th colspan="4" class="header-main">Assumbling</th>
+                    <th rowspan="2" class="rotated-text">Glass</th>
+                </tr>
+                <tr>
+                    <th class="rotated-text">4+8mm Sq. Hole</th>
+                    <th class="rotated-text">13mm hole</th>
+                    <th class="rotated-text">Hinges screw</th>
+                    <th class="rotated-text">f 6mm Hole</th>
+                    <th class="rotated-text">f 5x10 Hole</th>
+                    <th class="rotated-text">4mm Hole</th>
+                    <th class="rotated-text">1mm Hole</th>
+                    <th class="rotated-text">Shutter ID</th>
+                    <th class="rotated-text">S</th>
+                    <th class="rotated-text">Weather Strip</th>
+                    <th class="rotated-text">Powder Coating</th>
+                    <th class="rotated-text">Cleat Punching</th>
+                    <th class="rotated-text">Corner Revette</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="component-name">Side</td>
+                    <td class="cutting-size">150X1</td>
+                    <td>150</td>
+                    <td class="mark">2</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td>150-10/14-15mm</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">3Nos</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">Top& Bottom 200-25/4=</td>
+                    <td class="cutting-size">200-8</td>
+                    <td>192</td>
+                    <td class="mark">2</td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td>200-25/4</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">Divider</td>
+                    <td class="cutting-size">150-8</td>
+                    <td>142</td>
+                    <td class="mark">3</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">28X10 RECT.TUBE</td>
+                    <td class="cutting-size">150-6</td>
+                    <td>144</td>
+                    <td class="mark">8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">End Hole</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">CENTRE-1CM 150-2/14-15mm</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">Thread Rod</td>
+                    <td class="cutting-size">200-5</td>
+                    <td>195</td>
+                    <td class="mark">2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">Top& Bottom Pipe</td>
+                    <td class="cutting-size">200-10</td>
+                    <td>190</td>
+                    <td class="mark">2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">S.S Pipe</td>
+                    <td class="cutting-size">200-3</td>
+                    <td>197</td>
+                    <td class="mark">12</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">Shutter Horizonal</td>
+                    <td class="cutting-size">200-25/4+2-7</td>
+                    <td>45</td>
+                    <td class="mark">8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                </tr>
+                <tr>
+                    <td class="component-name">shutter clip</td>
+                    <td class="cutting-size">45-10.8</td>
+                    <td>34.2</td>
+                    <td class="mark">8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">Shutter vertical</td>
+                    <td class="cutting-size">150-8.6</td>
+                    <td>145</td>
+                    <td class="mark">8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                    <td class="mark">x</td>
+                </tr>
+                <tr>
+                    <td class="component-name">shutter clip</td>
+                    <td class="cutting-size">145-10.8</td>
+                    <td>134.2</td>
+                    <td class="mark">8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="component-name">16mm Cap</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="mark">x</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all production table cells
+            const tableCells = document.querySelectorAll('.production-table td');
+            
+            // Add click event to each cell
+            tableCells.forEach(cell => {
+                // Skip the component name cells
+                if (!cell.classList.contains('component-name')) {
+                    cell.addEventListener('click', function() {
+                        // Toggle the 'completed' class
+                        this.classList.toggle('completed');
+                        
+                        // Save the state in localStorage
+                        const table = this.closest('table');
+                        const orderId = table.getAttribute('data-order-id');
+                        const cellIndex = Array.from(this.parentElement.cells).indexOf(this);
+                        const rowIndex = this.parentElement.rowIndex;
+                        
+                        const storageKey = `order-${orderId}-cell-${rowIndex}-${cellIndex}`;
+                        
+                        if (this.classList.contains('completed')) {
+                            localStorage.setItem(storageKey, 'completed');
+                        } else {
+                            localStorage.removeItem(storageKey);
+                        }
+                    });
+                }
+            });
+            
+            // Load saved states from localStorage
+            const tables = document.querySelectorAll('.production-table');
+            tables.forEach(table => {
+                const orderId = table.getAttribute('data-order-id');
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach((row, rowIndex) => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach((cell, cellIndex) => {
+                        if (!cell.classList.contains('component-name')) {
+                            const storageKey = `order-${orderId}-cell-${rowIndex}-${cellIndex}`;
+                            if (localStorage.getItem(storageKey) === 'completed') {
+                                cell.classList.add('completed');
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+        </div>
+        <footer class="footer position-absolute">
+          <div class="row g-0 justify-content-between align-items-center h-100">
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 mt-2 mt-sm-0 text-body">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2025 &copy;<a class="mx-1" href="https://themewagon.com/">Themewagon</a></p>
+            </div>
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 text-body-tertiary text-opacity-85">v1.23.0</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="modal fade" id="searchBoxModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true" data-phoenix-modal="data-phoenix-modal" style="--phoenix-backdrop-opacity: 1;">
+        <div class="modal-dialog">
+          <div class="modal-content mt-15 rounded-pill">
+            <div class="modal-body p-0">
+              <div class="search-box navbar-top-search-box" data-list='{"valueNames":["title"]}' style="width: auto;">
+                <form class="position-relative" data-bs-toggle="search" data-bs-display="static"><input class="form-control search-input fuzzy-search rounded-pill form-control-lg" type="search" placeholder="Search..." aria-label="Search" />
+                  <span class="fas fa-search search-box-icon"></span>
+                </form>
+                <div class="btn-close position-absolute end-0 top-50 translate-middle cursor-pointer shadow-none" data-bs-dismiss="search"><button class="btn btn-link p-0" aria-label="Close"></button></div>
+                <div class="dropdown-menu border start-0 py-0 overflow-hidden w-100">
+                  <div class="scrollbar-overlay" style="max-height: 30rem;">
+                    <div class="list pb-3">
+                      <h6 class="dropdown-header text-body-highlight fs-10 py-2">24 <span class="text-body-quaternary">results</span></h6>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Recently Searched </h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> Store Macbook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> MacBook Air - 13″</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Products</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="h-100 w-100 object-fit-cover rounded-3" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Air - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">8GB Memory - 1.6GHz - 128GB Storage</span></p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="img-fluid" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Pro - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">30 Sep at 12:30 PM</span></p>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Quick Links</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Support MacBook House</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Files</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-file-zipper text-body" data-fa-transform="shrink-2"></span> Library MacBook folder.rar</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-file-lines text-body" data-fa-transform="shrink-2"></span> Feature MacBook extensions.txt</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-image text-body" data-fa-transform="shrink-2"></span> MacBook Pro_13.jpg</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Members</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
+                          <div class="avatar avatar-l status-online  me-2 text-body">
+                            <img class="rounded-circle " src="../../../assets/img/team/40x40/10.webp" alt="" />
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">Carry Anna</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">anna@technext.it</p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
+                          <div class="avatar avatar-l  me-2 text-body">
+                            <img class="rounded-circle " src="../../../assets/img/team/40x40/12.webp" alt="" />
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">John Smith</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">smith@technext.it</p>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Related Searches</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-brands fa-firefox-browser text-body" data-fa-transform="shrink-2"></span> Search in the Web MacBook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-brands fa-chrome text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <p class="fallback fw-bold fs-7 d-none">No Result Found.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="support-chat-container">
+        <div class="container-fluid support-chat">
+          <div class="card bg-body-emphasis">
+            <div class="card-header d-flex flex-between-center px-4 py-3 border-bottom border-translucent">
+              <h5 class="mb-0 d-flex align-items-center gap-2">Demo widget<span class="fa-solid fa-circle text-success fs-11"></span></h5>
+              <div class="btn-reveal-trigger"><button class="btn btn-link p-0 dropdown-toggle dropdown-caret-none transition-none d-flex" type="button" id="support-chat-dropdown" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h text-body"></span></button>
+                <div class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="support-chat-dropdown"><a class="dropdown-item" href="#!">Request a callback</a><a class="dropdown-item" href="#!">Search in chat</a><a class="dropdown-item" href="#!">Show history</a><a class="dropdown-item" href="#!">Report to Admin</a><a class="dropdown-item btn-support-chat" href="#!">Close Support</a></div>
+              </div>
+            </div>
+            <div class="card-body chat p-0">
+              <div class="d-flex flex-column-reverse scrollbar h-100 p-3">
+                <div class="text-end mt-6"><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I need help with something</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I can’t reorder a product I previously ordered</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">How do I place an order?</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="false d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">My payment method not working</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a></div>
+                <div class="text-center mt-auto">
+                  <div class="avatar avatar-3xl status-online"><img class="rounded-circle border border-3 border-light-subtle" src="../../../assets/img/team/30.webp" alt="" /></div>
+                  <h5 class="mt-2 mb-3">Eric</h5>
+                  <p class="text-center text-body-emphasis mb-0">Ask us anything – we’ll get back to you here or by email within 24 hours.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex align-items-center gap-2 border-top border-translucent ps-3 pe-4 py-3">
+              <div class="d-flex align-items-center flex-1 gap-3 border border-translucent rounded-pill px-4"><input class="form-control outline-none border-0 flex-1 fs-9 px-0" type="text" placeholder="Write message" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatPhotos"><span class="fa-solid fa-image"></span></label><input class="d-none" type="file" accept="image/*" id="supportChatPhotos" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatAttachment"> <span class="fa-solid fa-paperclip"></span></label><input class="d-none" type="file" id="supportChatAttachment" /></div><button class="btn p-0 border-0 send-btn"><span class="fa-solid fa-paper-plane fs-9"></span></button>
+            </div>
+          </div>
+      </div>
+    </main>
+    
+{% endblock %}

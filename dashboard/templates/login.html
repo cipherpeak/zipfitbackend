@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset & Body Styling */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Ensure html and body take full height */
+            width: 100%; /* Ensure html and body take full width */
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            box-sizing: border-box;
+            overflow: hidden; /* Prevent scrollbars if content fits */
+        }
+
+        /* Login Wrapper - The main container for the two panels */
+        .login-wrapper {
+            display: flex;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            width: 90%; /* Adjusted to take more width, but still have some margin */
+            height: 90%; /* Adjusted to take more height, but still have some margin */
+            overflow: hidden;
+            min-height: 500px; /* Minimum height for the wrapper */
+            max-width: 1200px; /* Allow it to grow larger on big screens */
+            max-height: 800px; /* Limit max height on very tall screens */
+        }
+
+        /* Left Panel - Company details/logo */
+        .left-panel {
+            flex: 1;
+            background-color: #333;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .left-panel img {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .left-panel h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .left-panel p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Right Panel - Login Form */
+        .right-panel {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Form Header */
+        .login-form {
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        /* Input Group Styling */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #888;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(136, 136, 136, 0.1);
+        }
+
+        /* Button Styling */
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #4a4a4a;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #333333;
+            transform: translateY(-2px);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        /* Forgot Password Link */
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .forgot-password a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .login-wrapper {
+                flex-direction: column; /* Stack panels vertically */
+                width: 100%; /* Take full width on small screens */
+                height: 100%; /* Take full height on small screens */
+                border-radius: 0; /* No border-radius on small screens */
+                box-shadow: none; /* No shadow on small screens */
+                min-height: auto; /* Allow height to adjust based on content */
+            }
+
+            .left-panel {
+                padding: 30px 20px;
+                min-height: 200px; /* Give left panel a minimum height when stacked */
+                border-bottom-left-radius: 0;
+                border-top-right-radius: 0; /* Remove top-right radius when stacked */
+            }
+
+            .left-panel h1 {
+                font-size: 28px;
+            }
+
+            .left-panel p {
+                font-size: 14px;
+            }
+
+            .right-panel {
+                padding: 30px 20px;
+            }
+
+            .login-form h2 {
+                font-size: 24px;
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-panel img {
+                max-width: 100px;
+            }
+            .left-panel h1 {
+                font-size: 24px;
+            }
+            .left-panel p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="left-panel">
+            <img src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="Company Logo">
+            <h1>Welcome to Admin Dashboard</h1>
+            <p>Manage your operations efficiently with our powerful and intuitive admin panel. Secure access to all your data.</p>
+        </div>
+        <div class="right-panel">
+            <form class="login-form" method="POST" action="{% url 'dashboard:login' %}">
+                {% csrf_token %}
+                <h2>Login to your Account</h2>
+                {% if error %}
+                <div style="color: red; margin-bottom: 15px; text-align: center;">
+                    {{ error }}
+                </div>
+                {% endif %}
+                <div class="input-group">
+                    <label for="email">Email or Username</label>
+                    <input type="text" id="email" name="email" placeholder="Enter your email or username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

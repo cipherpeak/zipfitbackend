@@ -1,0 +1,1578 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <main class="main" id="top">
+      <nav class="navbar navbar-vertical navbar-expand-lg" style="display:none;">
+        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+          <!-- scrollbar removed-->
+          <div class="navbar-vertical-content">
+            <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+              <li class="nav-item">
+                <!-- parent pages-->
+                <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#nv-home" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-indicator-icon-wrapper"><span class="fas fa-caret-right dropdown-indicator-icon"></span></div><span class="nav-link-icon"><span data-feather="pie-chart"></span></span><span class="nav-link-text">Home</span>
+                    </div>
+                  </a>
+                  <div class="parent-wrapper label-1">
+                    <ul class="nav collapse parent show" data-bs-parent="#navbarVerticalCollapse" id="nv-home">
+                      <li class="collapsed-nav-item-title d-none">Home</li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:fetch-customer-data' %}">
+                          <div class="d-flex align-items-center"><span class="nav-link-text">Dashboard</span></div>
+                        </a><!-- more inner pages-->
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <!-- label-->
+                <p class="navbar-vertical-label">Apps</p>
+                <hr class="navbar-vertical-line" /><!-- parent pages-->
+                <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#nv-e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-e-commerce">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown-indicator-icon-wrapper"><span class="fas fa-caret-right dropdown-indicator-icon"></span></div><span class="nav-link-icon"><span data-feather="shopping-cart"></span></span><span class="nav-link-text">Zip Fit</span>
+                    </div>
+                  </a>
+                  <div class="parent-wrapper label-1">
+                          <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-admin">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:add_window_configuration' %}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Add product</span></div>
+                              </a><!-- more inner pages-->
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:product_list' %}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text" >Products</span></div>
+                              </a><!-- more inner pages-->
+                            </li>
+          
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard:orders' %}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Orders</span></div>
+                              </a><!-- more inner pages-->
+                            </li>
+
+                          </ul>
+                  </div>
+                </div><!-- parent pages-->
+               
+               
+
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbar-vertical-footer"><button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center"><span class="uil uil-left-arrow-to-left fs-8"></span><span class="uil uil-arrow-from-right fs-8"></span><span class="navbar-vertical-footer-text ms-2">Collapsed View</span></button></div>
+      </nav>
+      <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault" style="display:none;">
+        <div class="collapse navbar-collapse justify-content-between">
+          <div class="navbar-logo">
+            <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+            <a class="navbar-brand me-1 me-sm-3" href="">
+              <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center"><img src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="phoenix" width="70" />
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <ul class="navbar-nav navbar-nav-icons flex-row">
+            <li class="nav-item">
+              <div class="theme-control-toggle fa-icon-wait px-2"><input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" /><label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="moon"></span></label><label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="sun"></span></label></div>
+            </li>
+
+
+            <li class="nav-item dropdown"><a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-l ">
+                  <img class="rounded-circle " src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="" />
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser">
+                <div class="card position-relative border-0">
+                  <div class="card-body p-0">
+                    <div class="text-center pt-4 pb-3">
+                      <div class="avatar avatar-xl ">
+                        <img class="rounded-circle " src="{% static 'img/favicons/451557879_310712962030846_2095178685349646451_n.jpg' %}" alt="" />
+                      </div>
+                      <h6 class="mt-2 text-body-emphasis">Jerry Seinfield</h6>
+                    </div>
+                  </div>
+                  <div class="overflow-auto scrollbar" style="height: 2rem;">
+                    <ul class="nav d-flex flex-column mb-2 pb-1">
+                      <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user"></span><span>Profile</span></a></li>
+                    </ul>
+                  </div>
+                  <div class="card-footer p-0 border-top border-translucent">
+                    <div class="px-3"> <a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="#!"> <span class="me-2" data-feather="log-out"> </span>Sign out</a></div>
+                    <div class="my-2 text-center fw-bold fs-10 text-body-quaternary"><a class="text-body-quaternary me-1" href="#!">Privacy policy</a>&bull;<a class="text-body-quaternary mx-1" href="#!">Terms</a>&bull;<a class="text-body-quaternary ms-1" href="#!">Cookies</a></div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+      <script>
+        var navbarTopShape = window.config.config.phoenixNavbarTopShape;
+        var navbarPosition = window.config.config.phoenixNavbarPosition;
+        var body = document.querySelector('body');
+        var navbarDefault = document.querySelector('#navbarDefault');
+        var navbarTop = document.querySelector('#navbarTop');
+        var topNavSlim = document.querySelector('#topNavSlim');
+        var navbarTopSlim = document.querySelector('#navbarTopSlim');
+        var navbarCombo = document.querySelector('#navbarCombo');
+        var navbarComboSlim = document.querySelector('#navbarComboSlim');
+        var dualNav = document.querySelector('#dualNav');
+
+        var documentElement = document.documentElement;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+
+        if (navbarPosition === 'dual-nav') {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          navbarDefault?.remove();
+          navbarVertical?.remove();
+          dualNav.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'dual');
+
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+          navbarDefault?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          topNavSlim.style.display = 'block';
+          navbarVertical.style.display = 'inline-block';
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+          navbarDefault?.remove();
+          navbarVertical?.remove();
+          navbarTop?.remove();
+          topNavSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarTopSlim.removeAttribute('style');
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+        } else if (navbarTopShape === 'slim' && navbarPosition === 'combo') {
+          navbarDefault?.remove();
+          navbarTop?.remove();
+          topNavSlim?.remove();
+          navbarCombo?.remove();
+          navbarTopSlim?.remove();
+          dualNav?.remove();
+          navbarComboSlim.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+          document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+        } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+          navbarDefault?.remove();
+          topNavSlim?.remove();
+          navbarVertical?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarTop.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'horizontal');
+        } else if (navbarTopShape === 'default' && navbarPosition === 'combo') {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarDefault?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarCombo.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+          document.documentElement.setAttribute('data-navigation-type', 'combo');
+        } else {
+          topNavSlim?.remove();
+          navbarTop?.remove();
+          navbarTopSlim?.remove();
+          navbarCombo?.remove();
+          navbarComboSlim?.remove();
+          dualNav?.remove();
+          navbarDefault.removeAttribute('style');
+          navbarVertical.removeAttribute('style');
+        }
+
+        var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+        var navbarTop = document.querySelector('.navbar-top');
+        if (navbarTopStyle === 'darker') {
+          navbarTop.setAttribute('data-navbar-appearance', 'darker');
+        }
+
+        var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+        if (navbarVerticalStyle === 'darker') {
+          navbarVertical.setAttribute('data-navbar-appearance', 'darker');
+        }
+      </script>
+      <div class="content">
+        <nav class="mb-3" aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="#!">Home</a></li>
+            <li class="breadcrumb-item active">Customer Details</li>
+          </ol>
+        </nav>
+        <div class="mb-9">
+          <div class="row align-items-center justify-content-between g-3 mb-4">
+            <div class="col-auto">
+              <h2 class="mb-0">Customer details</h2>
+            </div>
+            <div class="col-auto">
+              <div class="row g-3">
+                <!-- <div class="col-auto"><button class="btn btn-phoenix-danger"><span class="fa-solid fa-trash-can me-2"></span>Delete customer</button></div> -->
+              </div>
+            </div>
+          </div>
+          <div class="row g-5">
+                    <div class="col-12 col-md-5 col-xxl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <h3 class="me-1">{{customer.customer_name}}</h3>
+                                </div>
+                                <h5 class="text-body-secondary">Address</h5>
+                                <p class="text-body-secondary">
+                                    {{ customer.customer_address|linebreaksbr }}<br>
+                                </p>
+                                <div class="mb-3">
+                                    <h5 class="text-body-secondary">Email</h5>
+                                    <a href="mailto:{{ customer.customer_email }}">{{ customer.customer_email }}</a>
+                                </div>
+                                <h5 class="text-body-secondary">Phone</h5>
+                                <a class="text-body-secondary" href="tel:{{ customer.customer_phone }}">
+                                    {{ customer.customer_phone }}
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+            <div class="col-12">
+                <div class="row flex g-3 h-100">
+
+                    {% for orders in customer_orders %}
+
+                    <div class="col-12 col-md-7 col-xxl-12">
+                        <div class="card h-100 h-xxl-auto">
+                            <div class="card-body d-flex flex-column justify-content-between pb-3">
+                                <div class="row align-items-center g-5 mb-3 text-center text-sm-start">
+                                    <div class="col-12 col-sm-auto mb-sm-2">
+                                        <div class="avatar avatar-5xl">
+                                            {% if orders.window_model and orders.window_model.image %}
+                                                <img class="rounded-circle" src="{{ customer.window_model.image.url }}" alt="Window Configuration Image" />
+                                            {% else %}
+                                                <img class="rounded-circle" src="/static/assets/img/default-window.png" alt="Default Window Image" />
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-auto flex-1">
+                                        {% if orders.window_model %}
+                                            <p class="text-body-secondary">
+                                                Window Series: {{ orders.window_model.window_series }}
+                                            </p>
+                                              
+                                        <p class="text-body-secondary">Joined {{ orders.created_at|timesince }} ago</p>
+                                            <p class="text-body-secondary">
+                                                Window Type: {{ orders.window_model.window_type }}
+                                            </p>
+                                            <p class="text-body-secondary">
+                                                Dimensions: {{ orders.window_model.width }} x {{ orders.window_model.height }}
+                                            </p>
+                                        {% endif %}   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="col-12">
+              <div class="mb-6">
+                  <h3 class="mb-4">Window Configurations <span class="text-body-tertiary fw-normal">({{ customer_orders.count }})</span></h3>
+                  <div class="border-translucent border-top border-bottom" id="customerWindowConfigTable" data-list='{"valueNames":["type","series","dimensions","surface","coating","fitting","puffing","mosquito","price"],"page":5,"pagination":true}'>
+                  <div class="table-responsive scrollbar">
+                      <table class="table fs-9 mb-0">
+                          <thead>
+                              <tr>
+                                  <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:5%;"></th>
+                                  <th class="sort white-space-nowrap align-middle" scope="col" style="width:15%;" data-sort="type">WINDOW TYPE</th>
+                                  <th class="sort align-middle" scope="col" data-sort="series" style="width:10%;">SERIES</th>
+                                  <th class="sort align-middle" scope="col" data-sort="dimensions" style="width:10%;">DIMENSIONS</th>
+                                  <th class="sort align-middle" scope="col" data-sort="surface" style="width:15%;">SURFACE</th>
+                                  {% if customer.powder_coating_type %}
+                                  <th class="sort align-middle" scope="col" data-sort="coating" style="width:10%;">COATING</th>
+                                  {% endif %}
+                                  <th class="sort align-middle" scope="col" data-sort="fitting" style="width:10%;">FITTING</th>
+                                  <th class="sort align-middle" scope="col" data-sort="puffing" style="width:10%;">PUFFING</th>
+                                  <th class="sort align-middle" scope="col" data-sort="mosquito" style="width:10%;">MOSQUITO NET</th>
+                                  <th class="sort align-middle text-end" scope="col" data-sort="price" style="width:10%;">APPROXIMATE AMOUNT</th>
+                                  <th class="sort align-middle text-end" scope="col" style="width:5%;">ACTION</th>
+                              </tr>
+                          </thead>
+                          <tbody class="list" id="customer-window-config-table-body">
+                            {% for order in customer_orders%}
+                              {% if order.window_model %}
+                              <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                                  <td class="align-middle white-space-nowrap py-1">
+                                      {% if order.window_model.image %}
+                                          <img class="border border-translucent rounded-2" src="{{ order.window_model.image.url }}" alt="Window Image" width="40" height="40" />
+                                      {% else %}
+                                          <div class="border border-translucent rounded-2 d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                                              <span class="fas fa-window-maximize text-body-tertiary"></span>
+                                          </div>
+                                      {% endif %}
+                                  </td>
+                                  <td class="type align-middle">
+                                      <a class="fw-semibold mb-0" href="#!">
+                                          {{ order.window_model.window_type|default:"-" }}
+                                      </a>
+                                  </td>
+                                  <td class="series align-middle white-space-nowrap fs-9 text-body">
+                                      {{ order.window_model.window_series|default:"-" }}
+                                  </td>
+                                  <td class="dimensions align-middle white-space-nowrap text-body-tertiary fs-9 fw-semibold">
+                                      {% if order.window_model.width and order.window_model.height %}
+                                          {{ order.window_model.width }} x {{ order.window_model.height }}
+                                      {% else %}
+                                          -
+                                      {% endif %}
+                                  </td>
+                                  <td class="surface align-middle white-space-nowrap fs-9 text-body">
+                                      {{ order.surface_treatment|default:"-" }}
+                                      {% if order.wood_lamination_types.exists %}
+                                          <br>({{ order.wood_lamination_types.all|join:", " }})
+                                      {% endif %}
+                                  </td>
+                                  {% if order.powder_coating_type %}
+                                  <td class="coating align-middle white-space-nowrap fs-9 text-body">
+                                      {{ order.powder_coating_type }}
+                                      {% if order.powder_coating_color %}
+                                          <br>({{ order.powder_coating_color }})
+                                      {% endif %}
+                                  </td>
+                                  {% endif %}
+                                  <td class="fitting align-middle white-space-nowrap fs-9 text-body">
+                                      {{ order.fitting_price|default:"-" }}
+                                  </td>
+                                  <td class="puffing align-middle white-space-nowrap fs-9 text-body">
+                                      {{ order.puffing_price|default:"-" }}
+                                  </td>
+                                  <td class="mosquito align-middle white-space-nowrap fs-9 text-body">
+                                      {% if order.mosquito_net_needed %}
+                                          Yes ({{ order.has_mosquito_net|default:"-" }})
+                                      {% else %}
+                                          No
+                                      {% endif %}
+                                  </td>
+                                  <td class="price align-middle fw-bold text-body-highlight text-end">
+                                      ₹{{ order.approximate_amount|default:"-" }}
+                                  </td>
+                                  <td class="align-middle text-end white-space-nowrap pe-0">
+                                  <td class="align-middle text-end white-space-nowrap pe-0">
+                                      <div class="btn-group" role="group">
+                                          <button class="btn btn-sm btn-primary edit-config-btn" 
+                                                  data-bs-toggle="modal" 
+                                                  data-bs-target="#editWindowConfigModal"
+                                                  data-order-id="{{ order.id }}"
+                                                  data-finish="{{ order.finish.id|default:'' }}"
+                                                  data-infill="{{ order.infill.id|default:'' }}"
+                                                  data-hardware="{{ order.hardware.id|default:'' }}"
+                                                  data-lock="{{ order.lock.id|default:'' }}"
+                                                  data-other="{{ order.other.id|default:'' }}">
+                                              Edit
+                                          </button>
+                                      </div>
+                                  </td>
+
+                              </tr>
+                              {% else %}
+                              <tr>
+                                  <td colspan="{% if customer.powder_coating_type %}11{% else %}10{% endif %}" class="text-center py-4 text-body-tertiary">
+                                      No window configuration found
+                                  </td>
+                              </tr>
+                              {% endif %}
+                            {% endfor %}  
+                          </tbody>
+                      </table>
+                      </div>
+                      <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
+                          <div class="col-auto d-flex">
+                              <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p>
+                          </div>
+                          <div class="col-auto d-flex">
+                              <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                              <ul class="mb-0 pagination"></ul>
+                              <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+<div class="d-flex gap-2 mt-4">
+    {% if not is_approved_for_production and not is_in_production %}
+        <!-- Show Approve Supervisor button if not yet approved -->
+        <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#approvedSupervisorModal">
+            <i class="fas fa-industry me-2"></i> Approve for Production
+        </a>
+    {% elif is_approved_for_production and not is_in_production %}
+        <!-- Show Production Status button if approved but not in production -->
+        <a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productionStatusModal">
+            <i class="fas fa-cogs me-2"></i> Update Production Status
+        </a>
+    {% elif is_in_production %}
+        <!-- Navigate to production status page (remove modal target) -->
+        <a href="{% url 'dashboard:production-status-page' customer.id %}" class="btn btn-sm btn-info">
+            <i class="fas fa-tasks me-2"></i> View Production Progress
+        </a>
+    {% endif %}
+
+    <button class="btn btn-sm btn-success download-config-btn">
+        <i class="fas fa-download me-2"></i> Download customer quotation PDF
+    </button> 
+</div>
+
+{{ orders_json|json_script:"orders-data" }}
+
+<div class="modal fade" id="editWindowConfigModal" tabindex="-1" aria-labelledby="editWindowConfigModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editWindowConfigModalLabel">Edit Window Configuration</h5>
+                <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="fas fa-times fs-9"></span>
+                </button>
+            </div>
+            <form id="editWindowConfigForm" method="post" action="{% url 'dashboard:update_order_config' %}">
+                {% csrf_token %}
+                <input type="hidden" name="customer_id" id="editCustomerId" value="{{ customer.id }}">
+                <input type="hidden" name="order_id" id="editOrderId">
+
+                <div class="modal-body">
+                    <!-- Message area for displaying success/error messages -->
+                    <div id="configUpdateMessage" class="alert d-none"></div>
+                    
+                    <h6 class="mb-3">ADDITIONAL DETAILS</h6>
+                    
+                    <div class="row g-3">
+                        <!-- FINISH Field -->
+                        <div class="col-md-4">
+                            <label class="form-label" for="finish">Finish</label>
+                            <select class="form-select" id="finish" name="finish">
+                                <option value="">Select Finish</option>
+                                {% for finish in finish_options %}
+                                    <option value="{{ finish.id }}">
+                                        {{ finish.text }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- INFILL Field -->
+                        <div class="col-md-4">
+                            <label class="form-label" for="infill">Infill</label>
+                            <select class="form-select" id="infill" name="infill">
+                                <option value="">Select Infill</option>
+                                {% for infill in infill_options %}
+                                    <option value="{{ infill.id }}">
+                                        {{ infill.text }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- HARDWARE Field -->
+                        <div class="col-md-4">
+                            <label class="form-label" for="hardware">Hardware</label>
+                            <select class="form-select" id="hardware" name="hardware">
+                                <option value="">Select Hardware</option>
+                                {% for hardware in hardware_options %}
+                                    <option value="{{ hardware.id }}">
+                                        {{ hardware.text }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- LOCK Field -->
+                        <div class="col-md-4">
+                            <label class="form-label" for="lock">Lock</label>
+                            <select class="form-select" id="lock" name="lock">
+                                <option value="">Select Lock</option>
+                                {% for lock in lock_options %}
+                                    <option value="{{ lock.id }}">
+                                        {{ lock.text }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- OTHER Field -->
+                        <div class="col-md-4">
+                            <label class="form-label" for="other">Other</label>
+                            <select class="form-select" id="other" name="other">
+                                <option value="">Select Other Option</option>
+                                {% for other in other_options %}
+                                    <option value="{{ other.id }}">
+                                        {{ other.text }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="approvedSupervisorModal" tabindex="-1" aria-labelledby="approvedSupervisorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approvedSupervisorModalLabel">Approve Window Configurations</h5>
+                <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="fas fa-times fs-9"></span>
+                </button>
+            </div>
+            <form id="approvedSupervisorForm" method="post" action="{% url 'dashboard:approve_supervisor_order' %}">
+                {% csrf_token %}
+                <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                
+                <div class="modal-body">
+                    <!-- Message area for displaying success/error messages -->
+                    <div id="approvalMessage" class="alert d-none"></div>
+                    
+                    <h6 class="mb-3">WINDOW CONFIGURATIONS</h6>
+                    
+                    <!-- Orders will be dynamically added here -->
+                    <div id="orderConfigurations">
+                        {% for order in customer_orders %}
+                            <div class="card mb-3 order-configuration" data-order-id="{{ order.id }}">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0">Order #{{ forloop.counter }}</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <!-- Window Type -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="window_type_{{ order.id }}">Window Type</label>
+                                            <select class="form-select window-type-select" id="window_type_{{ order.id }}" name="window_type_{{ order.id }}">
+                                                <option value="">Select Window Type</option>
+                                                {% for window_type in window_types %}
+                                                    <option value="{{ window_type.id }}" {% if order.window_model and order.window_model.window_type.id == window_type.id %}selected{% endif %}>
+                                                        {{ window_type.name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Window Series -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="window_series_{{ order.id }}">Window Series</label>
+                                            <select class="form-select window-series-select" id="window_series_{{ order.id }}" name="window_series_{{ order.id }}">
+                                                <option value="">Select Window Series</option>
+                                                {% for series in window_series %}
+                                                    <option value="{{ series.id }}" {% if order.window_model and order.window_model.window_series.id == series.id %}selected{% endif %}>
+                                                        {{ series.name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Window Model -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="window_model_{{ order.id }}">Window Model</label>
+                                            <select class="form-select window-model-select" id="window_model_{{ order.id }}" name="window_model_{{ order.id }}">
+                                                <option value="">Select Window Model</option>
+                                                {% for config in window_configurations %}
+                                                    <option value="{{ config.id }}" {% if order.window_model and order.window_model.id == config.id %}selected{% endif %} data-width="{{ config.width.value }}" data-height="{{ config.height.value }}">
+                                                        {{ config.window_type.name }} - {{ config.window_series.name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Actual Width -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="actual_width_{{ order.id }}">Actual Width (mm)</label>
+                                            <input type="number" class="form-control actual-width" id="actual_width_{{ order.id }}" name="actual_width_{{ order.id }}" 
+                                                  step="0.01" min="0" placeholder="Enter actual width" value="{% if order.window_model and order.window_model.width %}{{ order.window_model.width.value }}{% endif %}">
+                                            <small class="text-muted">Original: {% if order.window_model and order.window_model.width %}{{ order.window_model.width.name }}{% else %}Not specified{% endif %} mm</small>
+                                        </div>
+                                        
+                                        <!-- Actual Height -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="actual_height_{{ order.id }}">Actual Height (mm)</label>
+                                            <input type="number" class="form-control actual-height" id="actual_height_{{ order.id }}" name="actual_height_{{ order.id }}" 
+                                                  step="0.01" min="0" placeholder="Enter actual height" value="{% if order.window_model and order.window_model.height %}{{ order.window_model.height.value }}{% endif %}">
+                                            <small class="text-muted">Original: {% if order.window_model and order.window_model.height %}{{ order.window_model.height.name }}{% else %}Not specified{% endif %} mm</small>
+                                        </div>
+                                        
+                                        <!-- Surface Treatment -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="surface_treatment_{{ order.id }}">Surface Treatment</label>
+                                            <input type="text" class="form-control" id="surface_treatment_{{ order.id }}" name="surface_treatment_{{ order.id }}" 
+                                                  value="{% if order.surface_treatment %}{{ order.surface_treatment.name }}{% endif %}" readonly>
+                                        </div>
+                                        
+                                        <!-- Wood Lamination Types -->
+                                        <div class="col-md-4">
+                                            <label class="form-label">Wood Lamination Types</label>
+                                            <div>
+                                                {% for wood in order.wood_lamination_types.all %}
+                                                    <span class="badge bg-secondary">{{ wood.name }}</span>
+                                                {% empty %}
+                                                    <span class="text-muted">None</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Powder Coating Type -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="powder_coating_type_{{ order.id }}">Powder Coating Type</label>
+                                            <input type="text" class="form-control" id="powder_coating_type_{{ order.id }}" name="powder_coating_type_{{ order.id }}" 
+                                                  value="{% if order.powder_coating_type %}{{ order.powder_coating_type.name }}{% endif %}" readonly>
+                                        </div>
+                                        
+                                        <!-- Powder Coating Color -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="powder_coating_color_{{ order.id }}">Powder Coating Color</label>
+                                            <input type="text" class="form-control" id="powder_coating_color_{{ order.id }}" name="powder_coating_color_{{ order.id }}" 
+                                                  value="{% if order.powder_coating_color %}{{ order.powder_coating_color.name }}{% endif %}" readonly>
+                                        </div>
+                                        
+                                        <!-- Mosquito Net -->
+                                        <div class="col-md-4">
+                                            <label class="form-label">Mosquito Net</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="mosquito_net_{{ order.id }}" name="mosquito_net_{{ order.id }}" 
+                                                      {% if order.mosquito_net_needed %}checked{% endif %} disabled>
+                                                <label class="form-check-label" for="mosquito_net_{{ order.id }}">
+                                                    Needed
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <small>Type: {% if order.has_mosquito_net %}{{ order.has_mosquito_net.name }}{% else %}Not specified{% endif %}</small>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Fitting Price -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="fitting_price_{{ order.id }}">Fitting Price</label>
+                                            <input type="text" class="form-control" id="fitting_price_{{ order.id }}" name="fitting_price_{{ order.id }}" 
+                                                  value="{% if order.fitting_price %}{{ order.fitting_price.price }}{% endif %}" readonly>
+                                        </div>
+                                        
+                                        <!-- Puffing Price -->
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="puffing_price_{{ order.id }}">Puffing Price</label>
+                                            <input type="text" class="form-control" id="puffing_price_{{ order.id }}" name="puffing_price_{{ order.id }}" 
+                                                  value="{% if order.puffing_price %}{{ order.puffing_price.price }}{% endif %}" readonly>
+                                        </div>
+
+                                        
+                                        <!-- Approximate Amount -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="approximate_amount_{{ order.id }}">Approximate Amount</label>
+                                            <input type="text" class="form-control" id="approximate_amount_{{ order.id }}" name="approximate_amount_{{ order.id }}" 
+                                                  value="{% if order.approximate_amount %}{{ order.approximate_amount }}{% endif %}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Customer Details -->
+                    <h6 class="mb-3 mt-5">CUSTOMER DETAILS</h6>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Customer Name</label>
+                            <p class="form-control-plaintext fw-bold">{{ customer.customer_name }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Customer Email</label>
+                            <p class="form-control-plaintext fw-bold">{{ customer.customer_email }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Customer Phone</label>
+                            <p class="form-control-plaintext fw-bold">{{ customer.customer_phone }}</p>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Customer Address</label>
+                            <p class="form-control-plaintext fw-bold">{{ customer.customer_address }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Approval Checkbox -->
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="supervisor_approval" name="supervisor_approval">
+                        <label class="form-check-label fw-bold" for="supervisor_approval">
+                            I approve this order for production
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Save Approval</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+            </div>
+
+          </div>
+        </div>
+        <footer class="footer position-absolute">
+          <div class="row g-0 justify-content-between align-items-center h-100">
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 mt-2 mt-sm-0 text-body">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2025 &copy;<a class="mx-1" href="https://themewagon.com/">Themewagon</a></p>
+            </div>
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 text-body-tertiary text-opacity-85">v1.23.0</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="modal fade" id="searchBoxModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true" data-phoenix-modal="data-phoenix-modal" style="--phoenix-backdrop-opacity: 1;">
+        <div class="modal-dialog">
+          <div class="modal-content mt-15 rounded-pill">
+            <div class="modal-body p-0">
+              <div class="search-box navbar-top-search-box" data-list='{"valueNames":["title"]}' style="width: auto;">
+                <form class="position-relative" data-bs-toggle="search" data-bs-display="static"><input class="form-control search-input fuzzy-search rounded-pill form-control-lg" type="search" placeholder="Search..." aria-label="Search" />
+                  <span class="fas fa-search search-box-icon"></span>
+                </form>
+                <div class="btn-close position-absolute end-0 top-50 translate-middle cursor-pointer shadow-none" data-bs-dismiss="search"><button class="btn btn-link p-0" aria-label="Close"></button></div>
+                <div class="dropdown-menu border start-0 py-0 overflow-hidden w-100">
+                  <div class="scrollbar-overlay" style="max-height: 30rem;">
+                    <div class="list pb-3">
+                      <h6 class="dropdown-header text-body-highlight fs-10 py-2">24 <span class="text-body-quaternary">results</span></h6>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Recently Searched </h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> Store Macbook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> MacBook Air - 13″</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Products</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="h-100 w-100 object-fit-cover rounded-3" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Air - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">8GB Memory - 1.6GHz - 128GB Storage</span></p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="img-fluid" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Pro - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">30 Sep at 12:30 PM</span></p>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Quick Links</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Support MacBook House</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Files</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-file-zipper text-body" data-fa-transform="shrink-2"></span> Library MacBook folder.rar</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-file-lines text-body" data-fa-transform="shrink-2"></span> Feature MacBook extensions.txt</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-image text-body" data-fa-transform="shrink-2"></span> MacBook Pro_13.jpg</div>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Members</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
+                          <div class="avatar avatar-l status-online  me-2 text-body">
+                            <img class="rounded-circle " src="../../../assets/img/team/40x40/10.webp" alt="" />
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">Carry Anna</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">anna@technext.it</p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
+                          <div class="avatar avatar-l  me-2 text-body">
+                            <img class="rounded-circle " src="../../../assets/img/team/40x40/12.webp" alt="" />
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">John Smith</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">smith@technext.it</p>
+                          </div>
+                        </a>
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Related Searches</h6>
+                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"><span class="fa-brands fa-firefox-browser text-body" data-fa-transform="shrink-2"></span> Search in the Web MacBook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-brands fa-chrome text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <p class="fallback fw-bold fs-7 d-none">No Result Found.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="container-fluid support-chat">
+          <div class="card bg-body-emphasis">
+            <div class="card-header d-flex flex-between-center px-4 py-3 border-bottom border-translucent">
+              <h5 class="mb-0 d-flex align-items-center gap-2">Demo widget<span class="fa-solid fa-circle text-success fs-11"></span></h5>
+              <div class="btn-reveal-trigger"><button class="btn btn-link p-0 dropdown-toggle dropdown-caret-none transition-none d-flex" type="button" id="support-chat-dropdown" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h text-body"></span></button>
+                <div class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="support-chat-dropdown"><a class="dropdown-item" href="#!">Request a callback</a><a class="dropdown-item" href="#!">Search in chat</a><a class="dropdown-item" href="#!">Show history</a><a class="dropdown-item" href="#!">Report to Admin</a><a class="dropdown-item btn-support-chat" href="#!">Close Support</a></div>
+              </div>
+            </div>
+            <div class="card-body chat p-0">
+              <div class="d-flex flex-column-reverse scrollbar h-100 p-3">
+                <div class="text-end mt-6"><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I need help with something</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I can’t reorder a product I previously ordered</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">How do I place an order?</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="false d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">My payment method not working</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a></div>
+                <div class="text-center mt-auto">
+                  <div class="avatar avatar-3xl status-online"><img class="rounded-circle border border-3 border-light-subtle" src="../../../assets/img/team/30.webp" alt="" /></div>
+                  <h5 class="mt-2 mb-3">Eric</h5>
+                  <p class="text-center text-body-emphasis mb-0">Ask us anything – we’ll get back to you here or by email within 24 hours.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex align-items-center gap-2 border-top border-translucent ps-3 pe-4 py-3">
+              <div class="d-flex align-items-center flex-1 gap-3 border border-translucent rounded-pill px-4"><input class="form-control outline-none border-0 flex-1 fs-9 px-0" type="text" placeholder="Write message" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatPhotos"><span class="fa-solid fa-image"></span></label><input class="d-none" type="file" accept="image/*" id="supportChatPhotos" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatAttachment"> <span class="fa-solid fa-paperclip"></span></label><input class="d-none" type="file" id="supportChatAttachment" /></div><button class="btn p-0 border-0 send-btn"><span class="fa-solid fa-paper-plane fs-9"></span></button>
+            </div>
+          </div>
+      </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle edit button click
+        const editButtons = document.querySelectorAll('.edit-config-btn');
+        const editOrderIdField = document.getElementById('editOrderId');
+        const messageDiv = document.getElementById('configUpdateMessage');
+        
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const orderId = this.getAttribute('data-order-id');
+                const finishId = this.getAttribute('data-finish');
+                const infillId = this.getAttribute('data-infill');
+                const hardwareId = this.getAttribute('data-hardware');
+                const lockId = this.getAttribute('data-lock');
+                const otherId = this.getAttribute('data-other');
+                
+                // Set the order ID
+                editOrderIdField.value = orderId;
+                
+                // Pre-populate form fields
+                if (finishId) {
+                    document.getElementById('finish').value = finishId;
+                } else {
+                    document.getElementById('finish').value = '';
+                }
+                
+                if (infillId) {
+                    document.getElementById('infill').value = infillId;
+                } else {
+                    document.getElementById('infill').value = '';
+                }
+                
+                if (hardwareId) {
+                    document.getElementById('hardware').value = hardwareId;
+                } else {
+                    document.getElementById('hardware').value = '';
+                }
+                
+                if (lockId) {
+                    document.getElementById('lock').value = lockId;
+                } else {
+                    document.getElementById('lock').value = '';
+                }
+                
+                if (otherId) {
+                    document.getElementById('other').value = otherId;
+                } else {
+                    document.getElementById('other').value = '';
+                }
+                
+                // Hide any previous messages
+                messageDiv.classList.add('d-none');
+            });
+        });
+        
+        // Handle form submission with AJAX
+        document.getElementById('editWindowConfigForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    messageDiv.className = 'alert alert-success';
+                    messageDiv.textContent = data.message;
+                    messageDiv.classList.remove('d-none');
+                    
+                    // Close modal and refresh page after a short delay
+                    setTimeout(function() {
+                        $('#editWindowConfigModal').modal('hide');
+                        location.reload(); // Refresh the page
+                    }, 1500);
+                } else {
+                    // Show error message
+                    messageDiv.className = 'alert alert-danger';
+                    messageDiv.textContent = data.message;
+                    messageDiv.classList.remove('d-none');
+                }
+            })
+            .catch(error => {
+                messageDiv.className = 'alert alert-danger';
+                messageDiv.textContent = 'An error occurred while updating the configuration.';
+                messageDiv.classList.remove('d-none');
+                console.error('Error:', error);
+            });
+        });
+        
+        // Reset form when modal is hidden
+        $('#editWindowConfigModal').on('hidden.bs.modal', function () {
+            document.getElementById('editWindowConfigForm').reset();
+            messageDiv.classList.add('d-none');
+        });
+    });
+    </script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const { jsPDF } = window.jspdf;
+
+    function getBase64Image(url) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                resolve(canvas.toDataURL('image/jpeg'));
+            };
+            img.onerror = () => {
+                console.error("Error loading image:", url);
+                resolve(null);
+            };
+            img.src = url;
+        });
+    }
+
+    // Get logo image from static files
+    const logoImagePromise = getBase64Image(window.location.origin + "{% static 'img/logo/451557879_310712962030846_2095178685349646451_n.jpg' %}");
+
+    // Helper function to draw window diagram - MODERN STYLE
+    function drawWindowDiagram(doc, x, y, width, height) {
+        // Modern frame with gradient effect
+        doc.setFillColor(80, 80, 80);
+        doc.rect(x, y, width, height, "F");
+        
+        // Glass panels with modern look
+        doc.setFillColor(200, 220, 240);
+        const panelSpacing = 2;
+        const panelWidth = (width - panelSpacing * 3) / 2;
+        const panelHeight = (height - panelSpacing * 4) / 3;
+        
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 2; col++) {
+                const panelX = x + panelSpacing + col * (panelWidth + panelSpacing);
+                const panelY = y + panelSpacing + row * (panelHeight + panelSpacing);
+                doc.rect(panelX, panelY, panelWidth, panelHeight, "F");
+                doc.setDrawColor(120, 160, 200);
+                doc.setLineWidth(0.1);
+                doc.rect(panelX, panelY, panelWidth, panelHeight);
+            }
+        }
+    }
+
+    // Function to add modern table header
+    function addTableHeader(doc, y) {
+        const tableStartX = 15;
+        const tableWidth = 180;
+        
+        const headers = [
+            { text: "SL NO", x: tableStartX, width: 12 },
+            { text: "DWG", x: tableStartX + 12, width: 25 },
+            { text: "DESCRIPTION", x: tableStartX + 37, width: 70 },
+            { text: "RATE", x: tableStartX + 107, width: 20 },
+            { text: "QTY", x: tableStartX + 127, width: 12 },
+            { text: "AMOUNT", x: tableStartX + 139, width: 25 },
+            { text: "TYPE", x: tableStartX + 164, width: 15 }
+        ];
+
+        // Modern header background
+        doc.setFillColor(44, 62, 80);
+        doc.rect(tableStartX, y, tableWidth, 12, "F");
+        
+        // Header text with modern styling
+        doc.setDrawColor(44, 62, 80);
+        doc.setLineWidth(0.5);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(255, 255, 255);
+
+        headers.forEach(header => {
+            doc.rect(header.x, y, header.width, 12);
+            header.text.split("\n").forEach((line, i) => {
+                doc.text(line, header.x + header.width/2, y + 7 + i*3, { align: "center" });
+            });
+        });
+
+        return headers;
+    }
+
+    // Function to add modern description table
+    function addDescriptionTable(doc, x, y, width, height, product) {
+        const descriptions = [
+            { label: "ITEM", value: product.item || "Not specified" },
+            { label: "PROFILE", value: product.profile || "Not specified" },
+            { label: "FINISH", value: product.finish || "Not specified" },
+            { label: "INFILL", value: product.infill || "N/A" },
+            { label: "HARDWARE", value: product.hardware || "N/A" },
+            { label: "LOCK", value: product.lock || "N/A" },
+            { label: "OTHER", value: product.other || "" }
+        ];
+
+        const rowHeight = height / descriptions.length;
+        const labelWidth = 25;
+        const valueWidth = width - labelWidth;
+
+        // Modern table styling
+        doc.setDrawColor(200, 200, 200);
+        doc.setLineWidth(0.1);
+
+        descriptions.forEach((desc, index) => {
+            const rowY = y + (index * rowHeight);
+            
+            // Label cell with modern background
+            if (index % 2 === 0) {
+                doc.setFillColor(245, 245, 245);
+            } else {
+                doc.setFillColor(250, 250, 250);
+            }
+            doc.rect(x, rowY, labelWidth, rowHeight, "F");
+            
+            doc.rect(x, rowY, labelWidth, rowHeight);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(7);
+            doc.setTextColor(44, 62, 80);
+            doc.text(desc.label, x + 3, rowY + rowHeight/2 + 2);
+            
+            // Value cell
+            doc.rect(x + labelWidth, rowY, valueWidth, rowHeight);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(7);
+            doc.setTextColor(0, 0, 0);
+            
+            // Handle text wrapping
+            const maxWidth = valueWidth - 6;
+            const wrappedLines = doc.splitTextToSize(desc.value, maxWidth);
+            
+            const maxLines = Math.min(wrappedLines.length, Math.floor(rowHeight / 4));
+            for (let i = 0; i < maxLines; i++) {
+                doc.text(wrappedLines[i], x + labelWidth + 3, rowY + 4 + (i * 3.5));
+            }
+        });
+    }
+
+    // Function to add modern product row
+    async function addProductRow(doc, product, startY, headers, rowIndex, orderData) {
+        const rowHeight = 45; // Proper height for modern layout
+        const tableStartX = 15;
+        
+        // Modern row background with alternating colors
+        if (rowIndex % 2 === 0) {
+            doc.setFillColor(255, 255, 255);
+        } else {
+            doc.setFillColor(248, 250, 252);
+        }
+        doc.rect(tableStartX, startY, 180, rowHeight, "F");
+        
+        // Modern borders
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(0.3);
+        headers.forEach(header => {
+            doc.rect(header.x, startY, header.width, rowHeight);
+        });
+
+        // SL NO - Modern styling
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.setTextColor(44, 62, 80);
+        doc.text((rowIndex + 1).toString(), tableStartX + 6, startY + rowHeight/2 + 2, { align: "center" });
+
+        // DWG Section - Modern layout
+        const dwgX = tableStartX + 12;
+        const dwgStartY = startY + 8;
+        
+        // Modern dimension boxes
+        doc.setFillColor(240, 245, 249);
+        doc.rect(dwgX + 2, dwgStartY, 10, 8, "F");
+        doc.setDrawColor(180, 200, 220);
+        doc.rect(dwgX + 2, dwgStartY, 10, 8);
+        
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(6);
+        doc.setTextColor(44, 62, 80);
+        doc.text(`W\n${product.width}`, dwgX + 7, dwgStartY + 4, { align: "center" });
+
+        doc.setFillColor(240, 245, 249);
+        doc.rect(dwgX + 14, dwgStartY, 10, 8, "F");
+        doc.setDrawColor(180, 200, 220);
+        doc.rect(dwgX + 14, dwgStartY, 10, 8);
+        doc.text(`H\n${product.height}`, dwgX + 19, dwgStartY + 4, { align: "center" });
+
+        // Modern window diagram - Larger like PDF model
+        const diagramY = startY + 20;
+        const diagramWidth = 20;
+        const diagramHeight = 18;
+        
+        if (product.windowImage) {
+            try {
+                doc.addImage(product.windowImage, 'JPEG', dwgX + 2, diagramY, diagramWidth, diagramHeight);
+            } catch (e) {
+                // Add fallback with modern styling
+                drawWindowDiagram(doc, dwgX + 2, diagramY, diagramWidth, diagramHeight);
+            }
+        } else {
+            drawWindowDiagram(doc, dwgX + 2, diagramY, diagramWidth, diagramHeight);
+        }
+
+        // DESCRIPTION Section - Modern table
+        const descX = tableStartX + 37;
+        const descY = startY + 3;
+        const descWidth = 68;
+        const descHeight = rowHeight - 6;
+        
+        addDescriptionTable(doc, descX, descY, descWidth, descHeight, product);
+
+        // RATE - Modern price styling
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.setTextColor(220, 20, 60);
+        doc.text(product.amount.toString(), tableStartX + 117, startY + rowHeight/2 + 2, { align: "center" });
+
+        // QUANTITY
+        doc.setFontSize(9);
+        doc.setTextColor(44, 62, 80);
+        const qty = product.quantity || 1;
+        doc.text(qty.toString(), tableStartX + 133, startY + rowHeight/2 + 2, { align: "center" });
+
+        // AMOUNT (Rate × Quantity)
+        const amount = (parseFloat(product.amount) || 0) * (parseFloat(qty) || 1);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.setTextColor(0, 100, 0);
+        doc.text(amount.toString(), tableStartX + 151.5, startY + rowHeight/2 + 2, { align: "center" });
+
+        // Coating Type
+        doc.setFontSize(7);
+        doc.setTextColor(0, 0, 0);
+        const coatingType = orderData.powderCoatingType || "SGL";
+        const coatingTypeLines = doc.splitTextToSize(coatingType, 13);
+        coatingTypeLines.forEach((line, i) => {
+            doc.text(line, tableStartX + 171.5, startY + 15 + (i * 3.5), { align: "center" });
+        });
+
+        return rowHeight;
+    }
+
+    // Function to add modern footer with totals
+    function addFooter(doc, orders) {
+        const footerY = 270;
+        
+        // Calculate totals
+        let subTotal = 0;
+        let grandTotal = 0;
+        
+        orders.forEach(order => {
+            order.items.forEach(item => {
+                const amount = (parseFloat(item.amount) || 0) * (parseFloat(item.quantity) || 1);
+                subTotal += amount;
+            });
+        });
+        
+        grandTotal = subTotal; // Add taxes/discounts if needed
+
+        // Totals section with modern styling
+        doc.setFillColor(44, 62, 80);
+        doc.rect(120, footerY - 15, 75, 20, "F");
+        
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(10);
+        doc.setTextColor(255, 255, 255);
+        doc.text("SUB TOTAL:", 125, footerY - 8);
+        doc.text(subTotal.toString(), 170, footerY - 8, { align: "right" });
+        
+        doc.text("GRAND TOTAL:", 125, footerY + 2);
+        doc.setTextColor(255, 255, 100);
+        doc.text(grandTotal.toString(), 170, footerY + 2, { align: "right" });
+
+        // Modern terms & conditions
+        doc.setFontSize(8);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont("helvetica", "bold");
+        doc.text("Terms & Conditions:", 15, footerY);
+        doc.setFont("helvetica", "normal");
+        
+        const terms = [
+            "• Rates inclusive of GST, valid 15 days from quotation date",
+            "• Subject to change without prior notice",
+            "• Exclusive of transportation & installation charges",
+            "• Based on current market prices of raw materials",
+            "• 5 Year Warranty for Profile with Colour"
+        ];
+        
+        terms.forEach((term, i) => doc.text(term, 15, footerY + 6 + i * 4));
+        
+        // Modern signature section
+        doc.setFont("helvetica", "bold");
+        doc.text("For ZIP FIT ALUMINIUM", 140, footerY + 25);
+        doc.setFont("helvetica", "normal");
+        doc.text("Authorized Signatory", 140, footerY + 30);
+        
+        // Bank details in modern box
+        doc.setFillColor(240, 245, 249);
+        doc.rect(15, footerY + 35, 180, 25, "F");
+        doc.setDrawColor(200, 200, 200);
+        doc.rect(15, footerY + 35, 180, 25);
+        
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.setTextColor(44, 62, 80);
+        doc.text("BANK DETAILS", 105, footerY + 41, { align: "center" });
+        
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        doc.setTextColor(0, 0, 0);
+        doc.text("NAME: TRIO ALUMINIUM TRADERS", 20, footerY + 47);
+        doc.text("ACC NO: 076808300000008", 20, footerY + 52);
+        doc.text("BANK: SOUTH INDIAN BANK, THURAVOOR", 20, footerY + 57);
+        doc.text("IFSC: SIBL0000768", 110, footerY + 57);
+    }
+
+    // NEW HEADER FUNCTION - MATCHING SECOND MODEL EXACTLY
+    async function addPageHeader(doc, data, isFirstPage) {
+        if (isFirstPage) {
+            // SIMPLE HEADER - NO BACKGROUND COLOR
+            doc.setFillColor(255, 255, 255);
+            doc.rect(0, 0, 210, 40, "F");
+            
+            // Company name - SIMPLE, NO BACKGROUND
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 0, 0);
+            doc.text("Zipfit", 105, 10, { align: "center" });
+            
+            // Location - SIMPLE
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text("KERALA", 105, 16, { align: "center" });
+            
+            // Windows text - SIMPLE
+            doc.setFontSize(8);
+            doc.setTextColor(150, 150, 150);
+            doc.text("WINDOWS", 105, 20, { align: "center" });
+            
+            // Quotation number and date - RIGHT ALIGNED LIKE SECOND MODEL
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            doc.text("No.MPAAI/95/2025-26", 180, 10, { align: "right" });
+            doc.text("22/08/2025", 180, 16, { align: "right" });
+            
+            // Horizontal line separator
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.5);
+            doc.line(15, 25, 195, 25);
+            
+            // Customer information section - SIMPLE BOX
+            doc.setFillColor(250, 250, 250);
+            doc.rect(15, 30, 180, 20, "F");
+            doc.setDrawColor(180, 180, 180);
+            doc.rect(15, 30, 180, 20);
+            
+            // Customer details
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 0, 0);
+            doc.text("CUSTOMER QUOTATION", 105, 37, { align: "center" });
+            
+            doc.setFontSize(8);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`TO: ${data.customerName.toUpperCase()}`, 20, 44);
+            doc.text(`ADDRESS: ${data.address.toUpperCase()}`, 20, 49);
+            doc.text(`PHONE: ${data.phone}`, 20, 54);
+            
+            // Add contact info from second model
+            doc.setFontSize(7);
+            doc.setTextColor(100, 100, 100);
+            doc.text("PH NO : 9846053402", 150, 44);
+            doc.text("sales@zipfit.in | www.zipfit.in", 150, 49);
+            
+            // Add logo if available
+            try {
+                const logoImage = await logoImagePromise;
+                if (logoImage) {
+                    doc.addImage(logoImage, 'PNG', 160, 32, 30, 15);
+                }
+            } catch (e) {
+                console.error("Error loading logo:", e);
+            }
+        }
+    }
+
+    // Main PDF generation function with modern design
+    async function generateCombinedPDF(orders) {
+        try {
+            const doc = new jsPDF("portrait", "mm", "a4");
+            let currentY = 60; // Start after header
+            let isFirstPage = true;
+            let globalRowIndex = 0;
+            
+            // Add page header - USING NEW SECOND MODEL STYLE
+            await addPageHeader(doc, orders[0], isFirstPage);
+            
+            // Add modern table header
+            const headers = addTableHeader(doc, currentY);
+            currentY += 12;
+            
+            // Process all products
+            for (const order of orders) {
+                let windowImageBase64 = null;
+                if (order.windowImage) {
+                    try {
+                        let imageUrl = order.windowImage;
+                        if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
+                            imageUrl = `/${imageUrl}`.replace(/\/+/g, '/');
+                        }
+                        if (!imageUrl.startsWith('http')) {
+                            imageUrl = window.location.origin + imageUrl;
+                        }
+                        windowImageBase64 = await getBase64Image(imageUrl);
+                    } catch (e) {
+                        console.error("Error loading window image:", e);
+                        windowImageBase64 = null;
+                    }
+                }
+                
+                for (const product of order.items) {
+                    // Check if we need a new page
+                    if (currentY + 45 > 250) {
+                        doc.addPage("a4", "portrait");
+                        isFirstPage = false;
+                        currentY = 20;
+                        addTableHeader(doc, currentY);
+                        currentY += 12;
+                    }
+                    
+                    const productWithImage = {
+                        ...product,
+                        windowImage: windowImageBase64
+                    };
+                    
+                    const rowHeight = await addProductRow(doc, productWithImage, currentY, headers, globalRowIndex, order);
+                    currentY += rowHeight;
+                    globalRowIndex++;
+                }
+            }
+            
+            // Add modern footer with totals
+            addFooter(doc, orders);
+            
+            // Save with modern filename
+            const customerName = orders[0].customerName.replace(/\s+/g, '_');
+            doc.save(`Quotation_${customerName}.pdf`);
+            
+        } catch (error) {
+            console.error('Error in PDF generation:', error);
+            throw error;
+        }
+    }
+
+    // Complete button click handler (unchanged)
+    document.querySelectorAll('.download-config-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            try {
+                console.log('Download button clicked');
+                
+                const ordersDataElement = document.getElementById('orders-data');
+                if (!ordersDataElement) {
+                    throw new Error('Cannot find orders data element');
+                }
+                
+                let rawData = ordersDataElement.textContent.trim();
+                
+                if (rawData.includes('\\"')) {
+                    rawData = rawData.replace(/\\"/g, '"');
+                }
+                
+                if (rawData.startsWith('"') && rawData.endsWith('"')) {
+                    rawData = rawData.slice(1, -1);
+                }
+                
+                console.log('Cleaned raw data:', rawData);
+                
+                let customerOrders;
+                try {
+                    customerOrders = JSON.parse(rawData);
+                    
+                    if (!Array.isArray(customerOrders)) {
+                        customerOrders = [customerOrders];
+                    }
+                    
+                    console.log('Successfully parsed orders:', customerOrders);
+                } catch (parseError) {
+                    console.error('Failed to parse orders data:', parseError);
+                    throw new Error('Invalid orders data format. Please check the data source.');
+                }
+                
+                if (customerOrders.length === 0) {
+                    console.warn('No orders found in the data');
+                    alert('No orders found to generate PDF');
+                    return;
+                }
+                
+                const preparedOrders = [];
+                for (const order of customerOrders) {
+                    if (!order || typeof order !== 'object') {
+                        console.warn('Skipping invalid order:', order);
+                        continue;
+                    }
+                    
+                    const data = {
+                        customerName: order.customer_name || 'Not specified',
+                        phone: order.customer_phone || 'Not specified',
+                        address: order.customer_address || 'Not specified',
+                        surfaceTreatment: order.surface_treatment || 'Not specified',
+                        powderCoatingType: order.powder_coating_type || 'Not specified',
+                        powderCoatingColor: order.powder_coating_color || 'Not specified',
+                        mosquitoNetNeeded: order.mosquito_net_needed || false,
+                        hasMosquitoNet: order.has_mosquito_net || 0,
+                        fittingPrice: order.fitting_price || 'Premium-1000',
+                        puffingPrice: order.puffing_price || 'Standard-800',
+                        windowImage: order.window_image || null,
+                        items: (order.items || []).map((item, i) => ({
+                            sl_no: item.sl_no || i + 1,
+                            width: item.width || 0,
+                            height: item.height || 0,
+                            item: item.item || 'Not specified',
+                            profile: item.profile || 'Not specified',
+                            finish: item.finish || 'Not specified',
+                            infill: item.infill || 'N/A',
+                            hardware: item.hardware || 'N/A',
+                            lock: item.lock || 'N/A',
+                            other: item.other || '',
+                            amount: item.amount || '0',
+                            quantity: item.quantity || 1
+                        }))
+                    };
+                    
+                    preparedOrders.push(data);
+                }
+                
+                console.log('Prepared orders for PDF:', preparedOrders);
+                
+                await generateCombinedPDF(preparedOrders);
+                console.log('Successfully generated modern PDF');
+                
+            } catch (error) {
+                console.error('Error in download handler:', error);
+                alert(`Failed to generate PDF: ${error.message}`);
+            }
+        });
+    });
+});
+</script>
+  <style>
+  .btn-group .btn {
+      margin-right: 5px;
+  }
+  .btn-group .btn:last-child {
+      margin-right: 0;
+  }
+  </style> 
+    
+{% endblock %}
+
+
