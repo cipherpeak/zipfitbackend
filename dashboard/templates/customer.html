@@ -420,30 +420,405 @@
                   </div>
               </div>
 
-<div class="d-flex gap-2 mt-4">
-    {% if not is_approved_for_production and not is_in_production %}
-        <!-- Show Approve Supervisor button if not yet approved -->
-        <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#approvedSupervisorModal">
-            <i class="fas fa-industry me-2"></i> Approve for Production
-        </a>
-    {% elif is_approved_for_production and not is_in_production %}
-        <!-- Show Production Status button if approved but not in production -->
-        <a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productionStatusModal">
-            <i class="fas fa-cogs me-2"></i> Update Production Status
-        </a>
-    {% elif is_in_production %}
-        <!-- Navigate to production status page (remove modal target) -->
-        <a href="{% url 'dashboard:production-status-page' customer.id %}" class="btn btn-sm btn-info">
-            <i class="fas fa-tasks me-2"></i> View Production Progress
-        </a>
-    {% endif %}
+                    <div class="d-flex gap-2 mt-4">
+                        {% if not is_approved_for_production and not is_in_production %}
+                            <!-- Show Approve Supervisor button if not yet approved -->
+                            <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#approvedSupervisorModal">
+                                <i class="fas fa-industry me-2"></i> Approve for Production
+                            </a>
+                        {% elif is_approved_for_production and not is_in_production %}
+                            <!-- Show Production Status button if approved but not in production -->
+                            <a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#productionStatusModal">
+                                <i class="fas fa-cogs me-2"></i> Update Production Status
+                            </a>
+                        {% elif is_in_production %}
+                            <!-- Navigate to production status page (remove modal target) -->
+                            <a href="{% url 'dashboard:production-status-page' customer.id %}" class="btn btn-sm btn-info">
+                                <i class="fas fa-tasks me-2"></i> View Production Progress
+                            </a>
+                        {% endif %}
 
-    <button class="btn btn-sm btn-success download-config-btn">
-        <i class="fas fa-download me-2"></i> Download customer quotation PDF
-    </button> 
+                        <button class="btn btn-sm btn-success create-config-btn">
+                            <i class="fas fa-download me-2"></i> Create customer quotation PDF
+                        </button> 
+                    </div>
+
+                {{ orders_json|json_script:"orders-data" }}
+
+
+
+                <!-- Add this CSS for the quotation table -->
+<style>
+.quotation-table-container {
+    display: none;
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.quotation-header {
+    background: white;
+    padding: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.company-info {
+    text-align: left;
+}
+
+.company-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.company-tagline {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.company-address {
+    font-size: 12px;
+    color: #34495e;
+    line-height: 1.4;
+}
+
+.quotation-meta {
+    text-align: right;
+}
+
+.quotation-number {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.quotation-date {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.customer-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.customer-to {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.customer-details {
+    font-size: 12px;
+    color: #34495e;
+    line-height: 1.6;
+}
+
+.quotation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.quotation-table th {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid #34495e;
+    font-weight: 600;
+}
+
+.quotation-table td {
+    padding: 10px 8px;
+    border: 1px solid #dee2e6;
+    vertical-align: top;
+    text-align: center;
+}
+
+.quotation-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.sl-no-column {
+    width: 5%;
+}
+
+.dwg-column {
+    width: 8%;
+}
+
+.area-ref-column {
+    width: 10%;
+}
+
+.description-column {
+    width: 25%;
+    text-align: left;
+}
+
+.rate-column {
+    width: 12%;
+}
+
+.fitting-column {
+    width: 10%;
+}
+
+.qty-column {
+    width: 8%;
+}
+
+.amount-column {
+    width: 12%;
+}
+
+.terms-conditions {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.bank-details {
+    margin-top: 15px;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.actions-bar {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    text-align: right;
+}
+
+.btn-download-pdf {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-download-pdf:hover {
+    background-color: #218838;
+}
+</style>
+
+<!-- Add this HTML for the quotation table -->
+<div class="quotation-table-container" id="quotationTable">
+    <div class="quotation-header">
+        <div class="company-header">
+            <div class="company-info">
+                <div class="company-logo">Zipfit</div>
+                <div class="company-tagline">KERALA WINDOWS FUTURE FIT</div>
+                <div class="company-address">
+                    6/125C, KSIDC, INDUSTRIAL GROWTH CENTRE,<br>
+                    CHERTHALA, PALIPPURAM<br>
+                    +91 9142071400 +9745 651 415<br>
+                    sales@zipfit.in | www.zipfit.in
+                </div>
+            </div>
+            <div class="quotation-meta">
+                <div class="quotation-number">No.MPAAI/95/2025-26</div>
+                <div class="quotation-date">22/08/2025</div>
+            </div>
+        </div>
+        
+        <div class="customer-info">
+            <div class="customer-to">TO,</div>
+            <div class="customer-details">
+                <strong>{{ customer.customer_name }}</strong><br>
+                {{ customer.customer_address|linebreaksbr }}<br>
+                PH NO : {{ customer.customer_phone }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="quotation-table">
+            <thead>
+                <tr>
+                    <th class="sl-no-column">SL NO</th>
+                    <th class="dwg-column">DWG</th>
+                    <th class="area-ref-column">AREA/REF</th>
+                    <th class="description-column">DESCRIPTION</th>
+                    <th class="rate-column">RATE</th>
+                    <th class="fitting-column">FITTING</th>
+                    <th class="qty-column">QTY</th>
+                    <th class="amount-column">AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- This will be populated with JavaScript -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" style="text-align: right; border: none; padding-top: 15px;"><strong>Sub Total</strong></td>
+                    <td colspan="2" style="text-align: center; border: none; padding-top: 15px;"><strong id="subTotalAmount">₹0.00</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: right; border: none;"><strong>Grand Total</strong></td>
+                    <td colspan="2" style="text-align: center; border: none;"><strong id="grandTotalAmount">₹0.00</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div class="terms-conditions">
+        <h5>Terms & Conditions</h5>
+        <ol>
+            <li>The Quotation Consider ZIPFIT Profile Interpon 9003 SGL White/Wood Lamination Colour Powder Coating.</li>
+            <li>Delivery Will Start within 4 to 6 Weeks from date of receiving order</li>
+            <li>Windows Security Tape Should be Remove while installing Windows Freely.After Handovering the windows the Security Tape is Removal is not our Scope</li>
+            <li>Payment Terms :60% Against Order Confirmation and 30% Before Delivery 10% After Installation The Price are based on the sizes provided by the Customer.The Prices are valid for Variation in Size upto+/50mm per window Provided the design and style of product remains unchanged.The customer will be charged on the pro rate basis for difference between the actual size and given sizes,if any beyond the above</li>
+            <li>After handovering the Windows,Cleaning is not our Scope</li>
+            <li>Scaffolding : Scaffolding Required for safe erection shall be provided by the customer</li>
+            <li>Electricity: Electricity Required for errection shall be provided by the customer</li>
+            <li>Store Room : Store romm shall be proved for the errection team keeping all the errection material</li>
+            <li>Purchase Order : Purchase Order With Advance To be Placed On us</li>
+            <li>Validity of the Offer : -30 Days From the date of Issue</li>
+            <li>Trade Union Problem Settled by the 1st Party</li>
+            <li>5 Year Warranty for Profile with Colour</li>
+            <li>Transporting Charges Extra</li>
+            <li>Silicon Application : 5mm of silicone shall only be applied by the Company and any extra gap shall Bourne by the Customer</li>
+        </ol>
+    </div>
+    
+    <div class="bank-details">
+        <h5>BANK DETAILS</h5>
+        <p><strong>NAME:</strong> TRIO ALUMINIUM TRADERS</p>
+        <p><strong>ACC NO.:</strong> 076808300000008</p>
+        <p><strong>BANK:</strong> SOUTH INDIAN BANK</p>
+        <p><strong>BRANCH:</strong> THURAVOOR</p>
+        <p><strong>IFSC:</strong> SIBL0000768</p>
+    </div>
+    
+    <div class="actions-bar">
+        <button class="btn-download-pdf" onclick="downloadQuotationPDF()">
+            <i class="fas fa-download me-2"></i> Download Quotation PDF
+        </button>
+    </div>
 </div>
 
-{{ orders_json|json_script:"orders-data" }}
+<!-- Update the button to toggle the quotation table -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const createPdfBtn = document.querySelector('.create-config-btn');
+    const quotationTable = document.getElementById('quotationTable');
+    
+    createPdfBtn.addEventListener('click', function() {
+        // Toggle the display of the quotation table
+        if (quotationTable.style.display === 'none' || quotationTable.style.display === '') {
+            quotationTable.style.display = 'block';
+            
+            // Populate the table with customer data
+            populateQuotationTable();
+        } else {
+            quotationTable.style.display = 'none';
+        }
+    });
+    
+    function populateQuotationTable() {
+        // Get the orders data from the JSON script
+        const ordersDataElement = document.getElementById('orders-data');
+        if (!ordersDataElement) return;
+        
+        const ordersData = JSON.parse(ordersDataElement.textContent);
+        const tableBody = quotationTable.querySelector('tbody');
+        tableBody.innerHTML = '';
+        
+        // Add each order as a row in the table
+        ordersData.forEach((order, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>-</td>
+                <td>${order.items[0].area || '-'}</td>
+                <td style="text-align: left;">
+                    <strong>${order.items[0].item || 'Window'}</strong><br>
+                    <small>
+                        ${order.items[0].profile ? 'Profile: ' + order.items[0].profile : ''}<br>
+                        ${order.items[0].finish ? 'Finish: ' + order.items[0].finish : ''}<br>
+                        ${order.items[0].infill ? 'Infill: ' + order.items[0].infill : ''}<br>
+                        ${order.items[0].hardware ? 'Hardware: ' + order.items[0].hardware : ''}<br>
+                        ${order.items[0].lock ? 'Lock: ' + order.items[0].lock : ''}<br>
+                        ${order.items[0].other ? 'Other: ' + order.items[0].other : ''}
+                    </small>
+                </td>
+                <td>₹${order.approximate_amount || '0.00'}</td>
+                <td>-</td>
+                <td>1</td>
+                <td>₹${order.approximate_amount || '0.00'}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+        
+        // Update totals
+        updateTotals(ordersData);
+    }
+    
+    function updateTotals(orders) {
+        let subtotal = 0;
+        orders.forEach(order => {
+            if (order.approximate_amount) {
+                subtotal += parseFloat(order.approximate_amount);
+            }
+        });
+        
+        document.getElementById('subTotalAmount').textContent = '₹' + subtotal.toFixed(2);
+        document.getElementById('grandTotalAmount').textContent = '₹' + subtotal.toFixed(2);
+    }
+    
+    function downloadQuotationPDF() {
+        // This function would handle the PDF generation
+        // For now, we'll just show an alert
+        alert('PDF download functionality would be implemented here');
+        // In a real implementation, you would:
+        // 1. Send the quotation data to your backend
+        // 2. Generate a PDF using a library like WeasyPrint, ReportLab, etc.
+        // 3. Return the PDF for download
+    }
+});
+</script>
+            </div>
+          </div>
+        </div>
+        <footer class="footer position-absolute">
+          <div class="row g-0 justify-content-between align-items-center h-100">
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 mt-2 mt-sm-0 text-body">Thank you for creating with CipherPeak<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2025 &copy;</p>
+            </div>
+ 
+          </div>
+        </footer>
+      </div>
+    </main>
+
 
 <div class="modal fade" id="editWindowConfigModal" tabindex="-1" aria-labelledby="editWindowConfigModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -738,174 +1113,6 @@
 </div>
 
 
-
-            </div>
-
-          </div>
-        </div>
-        <footer class="footer position-absolute">
-          <div class="row g-0 justify-content-between align-items-center h-100">
-            <div class="col-12 col-sm-auto text-center">
-              <p class="mb-0 mt-2 mt-sm-0 text-body">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2025 &copy;<a class="mx-1" href="https://themewagon.com/">Themewagon</a></p>
-            </div>
-            <div class="col-12 col-sm-auto text-center">
-              <p class="mb-0 text-body-tertiary text-opacity-85">v1.23.0</p>
-            </div>
-          </div>
-        </footer>
-      </div>
-      <div class="modal fade" id="searchBoxModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true" data-phoenix-modal="data-phoenix-modal" style="--phoenix-backdrop-opacity: 1;">
-        <div class="modal-dialog">
-          <div class="modal-content mt-15 rounded-pill">
-            <div class="modal-body p-0">
-              <div class="search-box navbar-top-search-box" data-list='{"valueNames":["title"]}' style="width: auto;">
-                <form class="position-relative" data-bs-toggle="search" data-bs-display="static"><input class="form-control search-input fuzzy-search rounded-pill form-control-lg" type="search" placeholder="Search..." aria-label="Search" />
-                  <span class="fas fa-search search-box-icon"></span>
-                </form>
-                <div class="btn-close position-absolute end-0 top-50 translate-middle cursor-pointer shadow-none" data-bs-dismiss="search"><button class="btn btn-link p-0" aria-label="Close"></button></div>
-                <div class="dropdown-menu border start-0 py-0 overflow-hidden w-100">
-                  <div class="scrollbar-overlay" style="max-height: 30rem;">
-                    <div class="list pb-3">
-                      <h6 class="dropdown-header text-body-highlight fs-10 py-2">24 <span class="text-body-quaternary">results</span></h6>
-                      <hr class="my-0" />
-                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Recently Searched </h6>
-                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> Store Macbook</div>
-                          </div>
-                        </a>
-                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> MacBook Air - 13″</div>
-                          </div>
-                        </a>
-                      </div>
-                      <hr class="my-0" />
-                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Products</h6>
-                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="file-thumbnail me-2"><img class="h-100 w-100 object-fit-cover rounded-3" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
-                          <div class="flex-1">
-                            <h6 class="mb-0 text-body-highlight title">MacBook Air - 13″</h6>
-                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">8GB Memory - 1.6GHz - 128GB Storage</span></p>
-                          </div>
-                        </a>
-                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="file-thumbnail me-2"><img class="img-fluid" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
-                          <div class="flex-1">
-                            <h6 class="mb-0 text-body-highlight title">MacBook Pro - 13″</h6>
-                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">30 Sep at 12:30 PM</span></p>
-                          </div>
-                        </a>
-                      </div>
-                      <hr class="my-0" />
-                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Quick Links</h6>
-                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Support MacBook House</div>
-                          </div>
-                        </a>
-                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
-                          </div>
-                        </a>
-                      </div>
-                      <hr class="my-0" />
-                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Files</h6>
-                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-file-zipper text-body" data-fa-transform="shrink-2"></span> Library MacBook folder.rar</div>
-                          </div>
-                        </a>
-                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-file-lines text-body" data-fa-transform="shrink-2"></span> Feature MacBook extensions.txt</div>
-                          </div>
-                        </a>
-                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-image text-body" data-fa-transform="shrink-2"></span> MacBook Pro_13.jpg</div>
-                          </div>
-                        </a>
-                      </div>
-                      <hr class="my-0" />
-                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Members</h6>
-                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
-                          <div class="avatar avatar-l status-online  me-2 text-body">
-                            <img class="rounded-circle " src="../../../assets/img/team/40x40/10.webp" alt="" />
-                          </div>
-                          <div class="flex-1">
-                            <h6 class="mb-0 text-body-highlight title">Carry Anna</h6>
-                            <p class="fs-10 mb-0 d-flex text-body-tertiary">anna@technext.it</p>
-                          </div>
-                        </a>
-                        <a class="dropdown-item py-2 d-flex align-items-center" href="https://prium.github.io/phoenix/v1.23.0/pages/members.html">
-                          <div class="avatar avatar-l  me-2 text-body">
-                            <img class="rounded-circle " src="../../../assets/img/team/40x40/12.webp" alt="" />
-                          </div>
-                          <div class="flex-1">
-                            <h6 class="mb-0 text-body-highlight title">John Smith</h6>
-                            <p class="fs-10 mb-0 d-flex text-body-tertiary">smith@technext.it</p>
-                          </div>
-                        </a>
-                      </div>
-                      <hr class="my-0" />
-                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Related Searches</h6>
-                      <div class="py-2"><a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"><span class="fa-brands fa-firefox-browser text-body" data-fa-transform="shrink-2"></span> Search in the Web MacBook</div>
-                          </div>
-                        </a>
-                        <a class="dropdown-item" href="https://prium.github.io/phoenix/v1.23.0/apps/e-commerce/landing/product-details.html">
-                          <div class="d-flex align-items-center">
-                            <div class="fw-normal text-body-highlight title"> <span class="fa-brands fa-chrome text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="text-center">
-                      <p class="fallback fw-bold fs-7 d-none">No Result Found.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        <div class="container-fluid support-chat">
-          <div class="card bg-body-emphasis">
-            <div class="card-header d-flex flex-between-center px-4 py-3 border-bottom border-translucent">
-              <h5 class="mb-0 d-flex align-items-center gap-2">Demo widget<span class="fa-solid fa-circle text-success fs-11"></span></h5>
-              <div class="btn-reveal-trigger"><button class="btn btn-link p-0 dropdown-toggle dropdown-caret-none transition-none d-flex" type="button" id="support-chat-dropdown" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h text-body"></span></button>
-                <div class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="support-chat-dropdown"><a class="dropdown-item" href="#!">Request a callback</a><a class="dropdown-item" href="#!">Search in chat</a><a class="dropdown-item" href="#!">Show history</a><a class="dropdown-item" href="#!">Report to Admin</a><a class="dropdown-item btn-support-chat" href="#!">Close Support</a></div>
-              </div>
-            </div>
-            <div class="card-body chat p-0">
-              <div class="d-flex flex-column-reverse scrollbar h-100 p-3">
-                <div class="text-end mt-6"><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
-                    <p class="mb-0 fw-semibold fs-9">I need help with something</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
-                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
-                    <p class="mb-0 fw-semibold fs-9">I can’t reorder a product I previously ordered</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
-                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
-                    <p class="mb-0 fw-semibold fs-9">How do I place an order?</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
-                  </a><a class="false d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
-                    <p class="mb-0 fw-semibold fs-9">My payment method not working</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
-                  </a></div>
-                <div class="text-center mt-auto">
-                  <div class="avatar avatar-3xl status-online"><img class="rounded-circle border border-3 border-light-subtle" src="../../../assets/img/team/30.webp" alt="" /></div>
-                  <h5 class="mt-2 mb-3">Eric</h5>
-                  <p class="text-center text-body-emphasis mb-0">Ask us anything – we’ll get back to you here or by email within 24 hours.</p>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer d-flex align-items-center gap-2 border-top border-translucent ps-3 pe-4 py-3">
-              <div class="d-flex align-items-center flex-1 gap-3 border border-translucent rounded-pill px-4"><input class="form-control outline-none border-0 flex-1 fs-9 px-0" type="text" placeholder="Write message" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatPhotos"><span class="fa-solid fa-image"></span></label><input class="d-none" type="file" accept="image/*" id="supportChatPhotos" /><label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatAttachment"> <span class="fa-solid fa-paperclip"></span></label><input class="d-none" type="file" id="supportChatAttachment" /></div><button class="btn p-0 border-0 send-btn"><span class="fa-solid fa-paper-plane fs-9"></span></button>
-            </div>
-          </div>
-      </div>
-    </main>
-
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Handle edit button click
@@ -1011,559 +1218,6 @@
     });
     </script>
 
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const { jsPDF } = window.jspdf;
-
-    function getBase64Image(url) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                resolve(canvas.toDataURL('image/jpeg'));
-            };
-            img.onerror = () => {
-                console.error("Error loading image:", url);
-                resolve(null);
-            };
-            img.src = url;
-        });
-    }
-
-    // Get logo image from static files
-    const logoImagePromise = getBase64Image(window.location.origin + "{% static 'img/logo/451557879_310712962030846_2095178685349646451_n.jpg' %}");
-
-    // Helper function to draw window diagram - MODERN STYLE
-    function drawWindowDiagram(doc, x, y, width, height) {
-        // Modern frame with gradient effect
-        doc.setFillColor(80, 80, 80);
-        doc.rect(x, y, width, height, "F");
-        
-        // Glass panels with modern look
-        doc.setFillColor(200, 220, 240);
-        const panelSpacing = 2;
-        const panelWidth = (width - panelSpacing * 3) / 2;
-        const panelHeight = (height - panelSpacing * 4) / 3;
-        
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 2; col++) {
-                const panelX = x + panelSpacing + col * (panelWidth + panelSpacing);
-                const panelY = y + panelSpacing + row * (panelHeight + panelSpacing);
-                doc.rect(panelX, panelY, panelWidth, panelHeight, "F");
-                doc.setDrawColor(120, 160, 200);
-                doc.setLineWidth(0.1);
-                doc.rect(panelX, panelY, panelWidth, panelHeight);
-            }
-        }
-    }
-
-    // Function to add modern table header
-    function addTableHeader(doc, y) {
-        const tableStartX = 15;
-        const tableWidth = 180;
-        
-        const headers = [
-            { text: "SL NO", x: tableStartX, width: 12 },
-            { text: "DWG", x: tableStartX + 12, width: 25 },
-            { text: "DESCRIPTION", x: tableStartX + 37, width: 70 },
-            { text: "RATE", x: tableStartX + 107, width: 20 },
-            { text: "QTY", x: tableStartX + 127, width: 12 },
-            { text: "AMOUNT", x: tableStartX + 139, width: 25 },
-            { text: "TYPE", x: tableStartX + 164, width: 15 }
-        ];
-
-        // Modern header background
-        doc.setFillColor(44, 62, 80);
-        doc.rect(tableStartX, y, tableWidth, 12, "F");
-        
-        // Header text with modern styling
-        doc.setDrawColor(44, 62, 80);
-        doc.setLineWidth(0.5);
-        doc.setFontSize(8);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(255, 255, 255);
-
-        headers.forEach(header => {
-            doc.rect(header.x, y, header.width, 12);
-            header.text.split("\n").forEach((line, i) => {
-                doc.text(line, header.x + header.width/2, y + 7 + i*3, { align: "center" });
-            });
-        });
-
-        return headers;
-    }
-
-    // Function to add modern description table
-    function addDescriptionTable(doc, x, y, width, height, product) {
-        const descriptions = [
-            { label: "ITEM", value: product.item || "Not specified" },
-            { label: "PROFILE", value: product.profile || "Not specified" },
-            { label: "FINISH", value: product.finish || "Not specified" },
-            { label: "INFILL", value: product.infill || "N/A" },
-            { label: "HARDWARE", value: product.hardware || "N/A" },
-            { label: "LOCK", value: product.lock || "N/A" },
-            { label: "OTHER", value: product.other || "" }
-        ];
-
-        const rowHeight = height / descriptions.length;
-        const labelWidth = 25;
-        const valueWidth = width - labelWidth;
-
-        // Modern table styling
-        doc.setDrawColor(200, 200, 200);
-        doc.setLineWidth(0.1);
-
-        descriptions.forEach((desc, index) => {
-            const rowY = y + (index * rowHeight);
-            
-            // Label cell with modern background
-            if (index % 2 === 0) {
-                doc.setFillColor(245, 245, 245);
-            } else {
-                doc.setFillColor(250, 250, 250);
-            }
-            doc.rect(x, rowY, labelWidth, rowHeight, "F");
-            
-            doc.rect(x, rowY, labelWidth, rowHeight);
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(7);
-            doc.setTextColor(44, 62, 80);
-            doc.text(desc.label, x + 3, rowY + rowHeight/2 + 2);
-            
-            // Value cell
-            doc.rect(x + labelWidth, rowY, valueWidth, rowHeight);
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(7);
-            doc.setTextColor(0, 0, 0);
-            
-            // Handle text wrapping
-            const maxWidth = valueWidth - 6;
-            const wrappedLines = doc.splitTextToSize(desc.value, maxWidth);
-            
-            const maxLines = Math.min(wrappedLines.length, Math.floor(rowHeight / 4));
-            for (let i = 0; i < maxLines; i++) {
-                doc.text(wrappedLines[i], x + labelWidth + 3, rowY + 4 + (i * 3.5));
-            }
-        });
-    }
-
-    // Function to add modern product row
-    async function addProductRow(doc, product, startY, headers, rowIndex, orderData) {
-        const rowHeight = 45; // Proper height for modern layout
-        const tableStartX = 15;
-        
-        // Modern row background with alternating colors
-        if (rowIndex % 2 === 0) {
-            doc.setFillColor(255, 255, 255);
-        } else {
-            doc.setFillColor(248, 250, 252);
-        }
-        doc.rect(tableStartX, startY, 180, rowHeight, "F");
-        
-        // Modern borders
-        doc.setDrawColor(220, 220, 220);
-        doc.setLineWidth(0.3);
-        headers.forEach(header => {
-            doc.rect(header.x, startY, header.width, rowHeight);
-        });
-
-        // SL NO - Modern styling
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.setTextColor(44, 62, 80);
-        doc.text((rowIndex + 1).toString(), tableStartX + 6, startY + rowHeight/2 + 2, { align: "center" });
-
-        // DWG Section - Modern layout
-        const dwgX = tableStartX + 12;
-        const dwgStartY = startY + 8;
-        
-        // Modern dimension boxes
-        doc.setFillColor(240, 245, 249);
-        doc.rect(dwgX + 2, dwgStartY, 10, 8, "F");
-        doc.setDrawColor(180, 200, 220);
-        doc.rect(dwgX + 2, dwgStartY, 10, 8);
-        
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(6);
-        doc.setTextColor(44, 62, 80);
-        doc.text(`W\n${product.width}`, dwgX + 7, dwgStartY + 4, { align: "center" });
-
-        doc.setFillColor(240, 245, 249);
-        doc.rect(dwgX + 14, dwgStartY, 10, 8, "F");
-        doc.setDrawColor(180, 200, 220);
-        doc.rect(dwgX + 14, dwgStartY, 10, 8);
-        doc.text(`H\n${product.height}`, dwgX + 19, dwgStartY + 4, { align: "center" });
-
-        // Modern window diagram - Larger like PDF model
-        const diagramY = startY + 20;
-        const diagramWidth = 20;
-        const diagramHeight = 18;
-        
-        if (product.windowImage) {
-            try {
-                doc.addImage(product.windowImage, 'JPEG', dwgX + 2, diagramY, diagramWidth, diagramHeight);
-            } catch (e) {
-                // Add fallback with modern styling
-                drawWindowDiagram(doc, dwgX + 2, diagramY, diagramWidth, diagramHeight);
-            }
-        } else {
-            drawWindowDiagram(doc, dwgX + 2, diagramY, diagramWidth, diagramHeight);
-        }
-
-        // DESCRIPTION Section - Modern table
-        const descX = tableStartX + 37;
-        const descY = startY + 3;
-        const descWidth = 68;
-        const descHeight = rowHeight - 6;
-        
-        addDescriptionTable(doc, descX, descY, descWidth, descHeight, product);
-
-        // RATE - Modern price styling
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.setTextColor(220, 20, 60);
-        doc.text(product.amount.toString(), tableStartX + 117, startY + rowHeight/2 + 2, { align: "center" });
-
-        // QUANTITY
-        doc.setFontSize(9);
-        doc.setTextColor(44, 62, 80);
-        const qty = product.quantity || 1;
-        doc.text(qty.toString(), tableStartX + 133, startY + rowHeight/2 + 2, { align: "center" });
-
-        // AMOUNT (Rate × Quantity)
-        const amount = (parseFloat(product.amount) || 0) * (parseFloat(qty) || 1);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.setTextColor(0, 100, 0);
-        doc.text(amount.toString(), tableStartX + 151.5, startY + rowHeight/2 + 2, { align: "center" });
-
-        // Coating Type
-        doc.setFontSize(7);
-        doc.setTextColor(0, 0, 0);
-        const coatingType = orderData.powderCoatingType || "SGL";
-        const coatingTypeLines = doc.splitTextToSize(coatingType, 13);
-        coatingTypeLines.forEach((line, i) => {
-            doc.text(line, tableStartX + 171.5, startY + 15 + (i * 3.5), { align: "center" });
-        });
-
-        return rowHeight;
-    }
-
-    // Function to add modern footer with totals
-    function addFooter(doc, orders) {
-        const footerY = 270;
-        
-        // Calculate totals
-        let subTotal = 0;
-        let grandTotal = 0;
-        
-        orders.forEach(order => {
-            order.items.forEach(item => {
-                const amount = (parseFloat(item.amount) || 0) * (parseFloat(item.quantity) || 1);
-                subTotal += amount;
-            });
-        });
-        
-        grandTotal = subTotal; // Add taxes/discounts if needed
-
-        // Totals section with modern styling
-        doc.setFillColor(44, 62, 80);
-        doc.rect(120, footerY - 15, 75, 20, "F");
-        
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(10);
-        doc.setTextColor(255, 255, 255);
-        doc.text("SUB TOTAL:", 125, footerY - 8);
-        doc.text(subTotal.toString(), 170, footerY - 8, { align: "right" });
-        
-        doc.text("GRAND TOTAL:", 125, footerY + 2);
-        doc.setTextColor(255, 255, 100);
-        doc.text(grandTotal.toString(), 170, footerY + 2, { align: "right" });
-
-        // Modern terms & conditions
-        doc.setFontSize(8);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont("helvetica", "bold");
-        doc.text("Terms & Conditions:", 15, footerY);
-        doc.setFont("helvetica", "normal");
-        
-        const terms = [
-            "• Rates inclusive of GST, valid 15 days from quotation date",
-            "• Subject to change without prior notice",
-            "• Exclusive of transportation & installation charges",
-            "• Based on current market prices of raw materials",
-            "• 5 Year Warranty for Profile with Colour"
-        ];
-        
-        terms.forEach((term, i) => doc.text(term, 15, footerY + 6 + i * 4));
-        
-        // Modern signature section
-        doc.setFont("helvetica", "bold");
-        doc.text("For ZIP FIT ALUMINIUM", 140, footerY + 25);
-        doc.setFont("helvetica", "normal");
-        doc.text("Authorized Signatory", 140, footerY + 30);
-        
-        // Bank details in modern box
-        doc.setFillColor(240, 245, 249);
-        doc.rect(15, footerY + 35, 180, 25, "F");
-        doc.setDrawColor(200, 200, 200);
-        doc.rect(15, footerY + 35, 180, 25);
-        
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.setTextColor(44, 62, 80);
-        doc.text("BANK DETAILS", 105, footerY + 41, { align: "center" });
-        
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(8);
-        doc.setTextColor(0, 0, 0);
-        doc.text("NAME: TRIO ALUMINIUM TRADERS", 20, footerY + 47);
-        doc.text("ACC NO: 076808300000008", 20, footerY + 52);
-        doc.text("BANK: SOUTH INDIAN BANK, THURAVOOR", 20, footerY + 57);
-        doc.text("IFSC: SIBL0000768", 110, footerY + 57);
-    }
-
-    // NEW HEADER FUNCTION - MATCHING SECOND MODEL EXACTLY
-    async function addPageHeader(doc, data, isFirstPage) {
-        if (isFirstPage) {
-            // SIMPLE HEADER - NO BACKGROUND COLOR
-            doc.setFillColor(255, 255, 255);
-            doc.rect(0, 0, 210, 40, "F");
-            
-            // Company name - SIMPLE, NO BACKGROUND
-            doc.setFontSize(14);
-            doc.setFont("helvetica", "bold");
-            doc.setTextColor(0, 0, 0);
-            doc.text("Zipfit", 105, 10, { align: "center" });
-            
-            // Location - SIMPLE
-            doc.setFontSize(10);
-            doc.setTextColor(100, 100, 100);
-            doc.text("KERALA", 105, 16, { align: "center" });
-            
-            // Windows text - SIMPLE
-            doc.setFontSize(8);
-            doc.setTextColor(150, 150, 150);
-            doc.text("WINDOWS", 105, 20, { align: "center" });
-            
-            // Quotation number and date - RIGHT ALIGNED LIKE SECOND MODEL
-            doc.setFontSize(9);
-            doc.setTextColor(0, 0, 0);
-            doc.text("No.MPAAI/95/2025-26", 180, 10, { align: "right" });
-            doc.text("22/08/2025", 180, 16, { align: "right" });
-            
-            // Horizontal line separator
-            doc.setDrawColor(200, 200, 200);
-            doc.setLineWidth(0.5);
-            doc.line(15, 25, 195, 25);
-            
-            // Customer information section - SIMPLE BOX
-            doc.setFillColor(250, 250, 250);
-            doc.rect(15, 30, 180, 20, "F");
-            doc.setDrawColor(180, 180, 180);
-            doc.rect(15, 30, 180, 20);
-            
-            // Customer details
-            doc.setFontSize(10);
-            doc.setFont("helvetica", "bold");
-            doc.setTextColor(0, 0, 0);
-            doc.text("CUSTOMER QUOTATION", 105, 37, { align: "center" });
-            
-            doc.setFontSize(8);
-            doc.setTextColor(0, 0, 0);
-            doc.text(`TO: ${data.customerName.toUpperCase()}`, 20, 44);
-            doc.text(`ADDRESS: ${data.address.toUpperCase()}`, 20, 49);
-            doc.text(`PHONE: ${data.phone}`, 20, 54);
-            
-            // Add contact info from second model
-            doc.setFontSize(7);
-            doc.setTextColor(100, 100, 100);
-            doc.text("PH NO : 9846053402", 150, 44);
-            doc.text("sales@zipfit.in | www.zipfit.in", 150, 49);
-            
-            // Add logo if available
-            try {
-                const logoImage = await logoImagePromise;
-                if (logoImage) {
-                    doc.addImage(logoImage, 'PNG', 160, 32, 30, 15);
-                }
-            } catch (e) {
-                console.error("Error loading logo:", e);
-            }
-        }
-    }
-
-    // Main PDF generation function with modern design
-    async function generateCombinedPDF(orders) {
-        try {
-            const doc = new jsPDF("portrait", "mm", "a4");
-            let currentY = 60; // Start after header
-            let isFirstPage = true;
-            let globalRowIndex = 0;
-            
-            // Add page header - USING NEW SECOND MODEL STYLE
-            await addPageHeader(doc, orders[0], isFirstPage);
-            
-            // Add modern table header
-            const headers = addTableHeader(doc, currentY);
-            currentY += 12;
-            
-            // Process all products
-            for (const order of orders) {
-                let windowImageBase64 = null;
-                if (order.windowImage) {
-                    try {
-                        let imageUrl = order.windowImage;
-                        if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
-                            imageUrl = `/${imageUrl}`.replace(/\/+/g, '/');
-                        }
-                        if (!imageUrl.startsWith('http')) {
-                            imageUrl = window.location.origin + imageUrl;
-                        }
-                        windowImageBase64 = await getBase64Image(imageUrl);
-                    } catch (e) {
-                        console.error("Error loading window image:", e);
-                        windowImageBase64 = null;
-                    }
-                }
-                
-                for (const product of order.items) {
-                    // Check if we need a new page
-                    if (currentY + 45 > 250) {
-                        doc.addPage("a4", "portrait");
-                        isFirstPage = false;
-                        currentY = 20;
-                        addTableHeader(doc, currentY);
-                        currentY += 12;
-                    }
-                    
-                    const productWithImage = {
-                        ...product,
-                        windowImage: windowImageBase64
-                    };
-                    
-                    const rowHeight = await addProductRow(doc, productWithImage, currentY, headers, globalRowIndex, order);
-                    currentY += rowHeight;
-                    globalRowIndex++;
-                }
-            }
-            
-            // Add modern footer with totals
-            addFooter(doc, orders);
-            
-            // Save with modern filename
-            const customerName = orders[0].customerName.replace(/\s+/g, '_');
-            doc.save(`Quotation_${customerName}.pdf`);
-            
-        } catch (error) {
-            console.error('Error in PDF generation:', error);
-            throw error;
-        }
-    }
-
-    // Complete button click handler (unchanged)
-    document.querySelectorAll('.download-config-btn').forEach(btn => {
-        btn.addEventListener('click', async function() {
-            try {
-                console.log('Download button clicked');
-                
-                const ordersDataElement = document.getElementById('orders-data');
-                if (!ordersDataElement) {
-                    throw new Error('Cannot find orders data element');
-                }
-                
-                let rawData = ordersDataElement.textContent.trim();
-                
-                if (rawData.includes('\\"')) {
-                    rawData = rawData.replace(/\\"/g, '"');
-                }
-                
-                if (rawData.startsWith('"') && rawData.endsWith('"')) {
-                    rawData = rawData.slice(1, -1);
-                }
-                
-                console.log('Cleaned raw data:', rawData);
-                
-                let customerOrders;
-                try {
-                    customerOrders = JSON.parse(rawData);
-                    
-                    if (!Array.isArray(customerOrders)) {
-                        customerOrders = [customerOrders];
-                    }
-                    
-                    console.log('Successfully parsed orders:', customerOrders);
-                } catch (parseError) {
-                    console.error('Failed to parse orders data:', parseError);
-                    throw new Error('Invalid orders data format. Please check the data source.');
-                }
-                
-                if (customerOrders.length === 0) {
-                    console.warn('No orders found in the data');
-                    alert('No orders found to generate PDF');
-                    return;
-                }
-                
-                const preparedOrders = [];
-                for (const order of customerOrders) {
-                    if (!order || typeof order !== 'object') {
-                        console.warn('Skipping invalid order:', order);
-                        continue;
-                    }
-                    
-                    const data = {
-                        customerName: order.customer_name || 'Not specified',
-                        phone: order.customer_phone || 'Not specified',
-                        address: order.customer_address || 'Not specified',
-                        surfaceTreatment: order.surface_treatment || 'Not specified',
-                        powderCoatingType: order.powder_coating_type || 'Not specified',
-                        powderCoatingColor: order.powder_coating_color || 'Not specified',
-                        mosquitoNetNeeded: order.mosquito_net_needed || false,
-                        hasMosquitoNet: order.has_mosquito_net || 0,
-                        fittingPrice: order.fitting_price || 'Premium-1000',
-                        puffingPrice: order.puffing_price || 'Standard-800',
-                        windowImage: order.window_image || null,
-                        items: (order.items || []).map((item, i) => ({
-                            sl_no: item.sl_no || i + 1,
-                            width: item.width || 0,
-                            height: item.height || 0,
-                            item: item.item || 'Not specified',
-                            profile: item.profile || 'Not specified',
-                            finish: item.finish || 'Not specified',
-                            infill: item.infill || 'N/A',
-                            hardware: item.hardware || 'N/A',
-                            lock: item.lock || 'N/A',
-                            other: item.other || '',
-                            amount: item.amount || '0',
-                            quantity: item.quantity || 1
-                        }))
-                    };
-                    
-                    preparedOrders.push(data);
-                }
-                
-                console.log('Prepared orders for PDF:', preparedOrders);
-                
-                await generateCombinedPDF(preparedOrders);
-                console.log('Successfully generated modern PDF');
-                
-            } catch (error) {
-                console.error('Error in download handler:', error);
-                alert(`Failed to generate PDF: ${error.message}`);
-            }
-        });
-    });
-});
-</script>
   <style>
   .btn-group .btn {
       margin-right: 5px;
